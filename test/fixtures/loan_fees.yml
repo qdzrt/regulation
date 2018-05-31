@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  credit_eval: one
+  product: one
+  user: one
+  times: 1
+  management_fee: 9.99
+  dayly_fee: 9.99
+  weekly_fee: 9.99
+  monthly_fee: 9.99
+  active: false
+
+two:
+  credit_eval: two
+  product: two
+  user: two
+  times: 1
+  management_fee: 9.99
+  dayly_fee: 9.99
+  weekly_fee: 9.99
+  monthly_fee: 9.99
+  active: false

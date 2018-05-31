@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  period_num: 1
+  period_unit: MyString
+  user: one
+  active: false
+
+two:
+  name: MyString
+  period_num: 1
+  period_unit: MyString
+  user: two
+  active: false
