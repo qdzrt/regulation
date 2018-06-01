@@ -5,6 +5,8 @@ class API < Grape::API
   version 'v1', using: :header, vendor: 'twitter'
   mount V1::AuthAPI
   mount V1::UserAPI
+  mount V1::ProductAPI
+  mount V1::CreditEvalAPI
 
   if Rails.env.development?
     before do

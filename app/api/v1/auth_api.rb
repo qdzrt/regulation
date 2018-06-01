@@ -1,5 +1,5 @@
 module V1
-  class AuthAPI < BaseAPI
+  class AuthAPI < Grape::API
     resources :auth do
       helpers do
         def auth_user
@@ -19,11 +19,11 @@ module V1
       post :token do
         if auth_user && auth_user.active
           payload = {
-              user: {
-                  id: auth_user.id,
-                  name: auth_user.name,
-                  email: auth_user.email
-              }
+            user: {
+              id: auth_user.id,
+              name: auth_user.name,
+              email: auth_user.email
+            }
           }
           token = authorization(payload)
           {user: auth_user, token: token}

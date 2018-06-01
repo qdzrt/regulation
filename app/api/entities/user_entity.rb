@@ -3,5 +3,6 @@ module Entities
     expose :id
     expose :name
     expose :email
+    expose :active
   end
 end

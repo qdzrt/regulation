@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531134234) do
+ActiveRecord::Schema.define(version: 20180601080549) do
 
   create_table "credit_evals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "score_gteq"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20180531134234) do
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "period_num"
-    t.string "period_unit"
+    t.integer "period_unit", default: 1
     t.bigint "user_id"
     t.boolean "active", default: false
     t.datetime "created_at", null: false

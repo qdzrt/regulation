@@ -37,21 +37,27 @@ module V1
           name: params[:name],
           email: params[:email],
           password: params[:password],
-          password_confirmation: params[:password_confirmation]
+          password_confirmation: params[:password_confirmation],
+          active: true
         )
       end
 
       desc 'Update a user'
       params do
         requires :id, type: String, desc: 'user id'
-        requires :password, type: String, desc: 'user password'
-        requires :password_confirmation, type: String, desc: 'user password confirmation'
+        optional :password, type: String, desc: 'user password'
+        optional :password_confirmation, type: String, desc: 'user password confirmation'
+        optional :active, type: Boolean, desc: 'user active'
+        all_or_none_of :password, :password_confirmation
+        at_least_one_of :password, :password_confirmation, :active
       end
       put ':id' do
-        User.find(params[:id]).update!(
+        args = {
           password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        )
+          password_confirmation: params[:password_confirmation],
+          active: params[:active]
+        }.select{|k, v| v != nil }
+        User.find(params[:id]).update!(args)
       end
     end
   end

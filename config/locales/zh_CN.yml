@@ -1,0 +1,55 @@
+zh_CN:
+  hello: '你好'
+
+  activerecord:
+    models:
+      user: "用户"
+      credit_eval: "信用分"
+      product: "产品"
+      loan_fee: "费率"
+
+    attributes:
+      user:
+        name: "用户名"
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+        active: "激活状态"
+      credit_eval:
+        score_gteq: "最低分"
+        score_lt: "最高分"
+        grade: "等级"
+        score_interval: "分数区间"
+        user: "操作人"
+      product:
+        name: "名称"
+        period_num: "周期数"
+        period_unit: "周期单位"
+        user: "操作人"
+        active: "激活状态"
+      loan_fee:
+        credit_eval: "信用分"
+        product: "产品"
+        user: "操作人"
+        management_fee: "管理费率"
+        dayly_fee: "日费率"
+        weekly_fee: "周费率"
+        monthly_fee: "月费率"
+        times: "贷款次数"
+        active: "激活状态"
+
+    errors:
+      messages:
+        record_invalid: "校验失败: %{errors}"
+
+      models:
+        user:
+          attributes:
+            email:
+              blank: "不能为空"
+              invalid: "格式错误"
+            password:
+              blank: "不能为空"
+            password_confirmation:
+              confirmation: "请确认密码"
+
