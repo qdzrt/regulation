@@ -11,7 +11,9 @@ class CreditEval < ApplicationRecord
   validates_numericality_of :score_gteq, only_integer: true, greater_than_or_equal_to: 0
   validates_numericality_of :score_lt, only_integer: true, greater_than: :score_gteq, less_than_or_equal_to: MAX_SCORE
 
-  # validates_with ScoreIntervalValidator
+  validates_with ScoreIntervalValidator
+
+  delegate :name, to: :user, prefix: true
 
   def score_interval
     ['[', score_gteq, ',', score_lt, ')'].join if score_gteq && score_lt

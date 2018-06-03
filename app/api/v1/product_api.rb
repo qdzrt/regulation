@@ -2,7 +2,10 @@ module V1
   class ProductAPI < Grape::API
     resource :products do
       before do
-        authenticate!
+        # authenticate!
+        def current_user
+          User.first
+        end
       end
 
       desc 'Get all products'

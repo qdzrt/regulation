@@ -1,9 +1,12 @@
 module V1
   class CreditEvalAPI < Grape::API
     resource :credit_evals do
-      # before do
-      #   authenticate!
-      # end
+      before do
+        # authenticate!
+        def current_user
+          User.first
+        end
+      end
 
       desc 'Get all credit_evals'
       get do
@@ -17,7 +20,8 @@ module V1
       end
       route_param :id do
         get do
-          CreditEval.find(params[:id])
+          credit_eval = CreditEval.find(params[:id])
+          present :credit_eval, credit_eval, with: API::Entities::CreditEvalEntity
         end
       end
 
@@ -42,7 +46,7 @@ module V1
         optional :score_gteq, type: Integer, values: ->(v){ v > 0 }, desc: 'credit_eval score_gteq'
         optional :score_lt, type: Integer, values: ->(v){ v > 0 && v.score_gteq < v.score_lt }, desc: 'credit_eval score_lt'
         optional :grade, type: String, desc: 'credit_eval grade'
-        at_least_one_of :score_gteq, :score_lt, :grade, :active
+        at_least_one_of :score_gteq, :score_lt, :grade
       end
       put ':id' do
         args = {
@@ -50,7 +54,6 @@ module V1
           score_lt: params[:score_lt],
           grade: params[:grade]
         }.select{|k, v| v != nil }
-        byebug
         CreditEval.find(params[:id]).update!(args)
       end
     end

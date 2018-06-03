@@ -52,4 +52,21 @@ zh_CN:
               blank: "不能为空"
             password_confirmation:
               confirmation: "请确认密码"
+        product:
+          attributes:
+            user:
+              required: "必选"
+        credit_eval:
+          attributes:
+            score_lt:
+              greater_than: "大于最低分"
+        loan_fee:
+          attributes:
+            product:
+              required: "必选"
+            credit_eval:
+              required: "必选"
+            user:
+              required: "必选"
+
 

@@ -7,6 +7,7 @@ class API < Grape::API
   mount V1::UserAPI
   mount V1::ProductAPI
   mount V1::CreditEvalAPI
+  mount V1::LoanFeeAPI
 
   if Rails.env.development?
     before do
@@ -15,10 +16,10 @@ class API < Grape::API
     end
 
     add_swagger_documentation(
-        api_version: 'v1',
-        base_path: '/',
-        hide_documentation_path: true,
-        hide_format: true
+      api_version: 'v1',
+      base_path: '/',
+      hide_documentation_path: true,
+      hide_format: true
     )
   end
 
