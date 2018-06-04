@@ -6,6 +6,9 @@ module V1
         def current_user
           User.first
         end
+        def permitted_params
+          @permitted_params ||= declared(params, include_missing: false).to_h
+        end
       end
 
       desc 'Get all loan fees'
@@ -30,23 +33,13 @@ module V1
         requires :product_id, type: Integer, desc: 'product id'
         requires :credit_eval_id, type: Integer, desc: 'credit_eval id'
         requires :management_fee, type: Integer, desc: 'management_fee'
+        optional :dayly_fee, type: BigDecimal, desc: 'dayly_fee'
+        optional :weekly_fee, type: BigDecimal, desc: 'weekly_fee'
+        optional :monthly_fee, type: BigDecimal, desc: 'monthly_fee'
         requires :times, type: Integer, desc: "times"
-        optional :dayly_fee, type: Integer, desc: 'dayly_fee'
-        optional :weekly_fee, type: Integer, desc: 'weekly_fee'
-        optional :monthly_fee, type: Integer, desc: 'monthly_fee'
       end
       post do
-        LoanFee.create!(
-          product_id: params[:product_id],
-          credit_eval_id: params[:credit_eval_id],
-          management_fee: params[:management_fee],
-          times: params[:times],
-          dayly_fee: params[:dayly_fee],
-          weekly_fee: params[:weekly_fee],
-          monthly_fee: params[:monthly_fee],
-          user: current_user,
-          active: true
-        )
+        LoanFee.create!(permitted_params.merge({user: current_user, active: true}))
       end
 
       desc 'Update a loan fee'
@@ -55,23 +48,29 @@ module V1
         optional :product_id, type: Integer, desc: 'product id'
         optional :credit_eval_id, type: Integer, desc: 'credit_eval id'
         optional :management_fee, type: Integer, desc: 'management_fee'
+        optional :dayly_fee, type: BigDecimal, desc: 'dayly_fee'
+        optional :weekly_fee, type: BigDecimal, desc: 'weekly_fee'
+        optional :monthly_fee, type: BigDecimal, desc: 'monthly_fee'
         optional :times, type: Integer, desc: 'times'
-        optional :dayly_fee, type: Integer, desc: 'dayly_fee'
-        optional :weekly_fee, type: Integer, desc: 'weekly_fee'
-        optional :monthly_fee, type: Integer, desc: 'monthly_fee'
-        at_least_one_of :product_id, :credit_eval_id, :management_fee, :times, :dayly_fee, :weekly_fee, :monthly_fee
+        at_least_one_of :product_id, :credit_eval_id, :management_fee, :dayly_fee, :weekly_fee, :monthly_fee, :times
       end
       put ':id' do
-        args = {
-          product_id: params[:product_id],
-          credit_eval_id: params[:credit_eval_id],
-          management_fee: params[:management_fee],
-          times: params[:times],
-          dayly_fee: params[:dayly_fee],
-          weekly_fee: params[:weekly_fee],
-          monthly_fee: params[:monthly_fee]
-        }.select{|k, v| v != nil }
-        LoanFee.find(params[:id]).update!(args)
+        LoanFee.find(params[:id]).update!(permitted_params)
+      end
+
+      desc 'Get product loan fee interval'
+      get 'loan_fee_options' do
+
+      end
+
+      desc 'Fetch product loan fees interval'
+      params do
+        requires :product_period, type: String, desc: 'product_period'
+        requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
+        optional :fee_type, type: String, values: ['management_fee', 'dayly_fee', 'weekly_fee', 'monthly_fee'], desc: 'fee_type'
+      end
+      get 'product_fee_interval' do
+        ProductFee.product_fee_interval(params)
       end
     end
   end

@@ -6,6 +6,9 @@ module V1
         def current_user
           User.first
         end
+        def permitted_params
+          @permitted_params ||= declared(params, include_missing: false).to_h
+        end
       end
 
       desc 'Get all products'
@@ -31,13 +34,7 @@ module V1
         requires :period_unit, type: String, desc: 'product period_unit'
       end
       post do
-        Product.create!(
-          name: params[:name],
-          period_num: params[:period_num],
-          period_unit: params[:period_unit],
-          user: current_user,
-          active: true
-        )
+        Product.create!(permitted_params.merge({user: current_user, active: true}))
       end
 
       desc 'Update a product'
@@ -50,13 +47,7 @@ module V1
         at_least_one_of :name, :period_num, :period_unit, :active
       end
       put ':id' do
-        args = {
-          name: params[:name],
-          period_num: params[:period_num],
-          period_unit: params[:period_unit],
-          active: params[:active]
-        }.select{|k, v| v != nil }
-        Product.find(params[:id]).update!(args)
+        Product.find(params[:id]).update!(permitted_params)
       end
     end
   end

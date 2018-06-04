@@ -3,9 +3,12 @@ module V1
     # use Grape::Attack::Throttle
 
     resource :users do
-      # before do
-      #   authenticate!
-      # end
+      before do
+        # authenticate!
+        def permitted_params
+          @permitted_params ||= declared(params, include_missing: false).to_h
+        end
+      end
 
       desc 'Get all users'
       # throttle max: 10, per: 1.minute
@@ -33,13 +36,7 @@ module V1
       end
       post do
         status 200
-        User.create!(
-          name: params[:name],
-          email: params[:email],
-          password: params[:password],
-          password_confirmation: params[:password_confirmation],
-          active: true
-        )
+        User.create!(permitted_params.merge({active: true}))
       end
 
       desc 'Update a user'
@@ -52,12 +49,7 @@ module V1
         at_least_one_of :password, :password_confirmation, :active
       end
       put ':id' do
-        args = {
-          password: params[:password],
-          password_confirmation: params[:password_confirmation],
-          active: params[:active]
-        }.select{|k, v| v != nil }
-        User.find(params[:id]).update!(args)
+        User.find(params[:id]).update!(permitted_params)
       end
     end
   end

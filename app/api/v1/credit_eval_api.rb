@@ -6,6 +6,9 @@ module V1
         def current_user
           User.first
         end
+        def permitted_params
+          @permitted_params ||= declared(params, include_missing: false).to_h
+        end
       end
 
       desc 'Get all credit_evals'
@@ -32,12 +35,7 @@ module V1
         requires :grade, type: String, desc: 'credit_eval grade'
       end
       post do
-        CreditEval.create!(
-          score_gteq: params[:score_gteq],
-          score_lt: params[:score_lt],
-          grade: params[:grade],
-          user: current_user
-        )
+        CreditEval.create!(permitted_params.merge({user: current_user}))
       end
 
       desc 'Update a credit_eval'
@@ -49,12 +47,7 @@ module V1
         at_least_one_of :score_gteq, :score_lt, :grade
       end
       put ':id' do
-        args = {
-          score_gteq: params[:score_gteq],
-          score_lt: params[:score_lt],
-          grade: params[:grade]
-        }.select{|k, v| v != nil }
-        CreditEval.find(params[:id]).update!(args)
+        CreditEval.find(params[:id]).update!(permitted_params)
       end
     end
   end
