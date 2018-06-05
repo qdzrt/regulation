@@ -19,7 +19,15 @@ module V1
       end
       get :product_fee_interval do
         fees = ProductFeeIntervalQuery.new(params[:product_period], params[:loan_times]).call
-        params[:fee_type] ? fees.select{|k, v| k.include? params[:fee_type] } : fees
+        loan_fees = fees.inject({}) do |h, f|
+          fd = f[0].dup
+          fee_type = fd.sub(/(min|max)_/, '')
+          prefix = fd.split('_')[0]
+          h[fee_type] ? h[fee_type].deep_merge!({ "#{prefix}" => f[1] }) : h[fee_type]={ "#{prefix}" => f[1] }
+          h
+        end
+        key = "#{params[:fee_type]}_fee"
+        params[:fee_type] && loan_fees.has_key?(key) ? loan_fees[key] : loan_fees
       end
 
       desc '获取产品费率选项'
