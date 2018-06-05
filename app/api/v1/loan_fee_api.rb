@@ -20,9 +20,7 @@ module V1
       get :product_fee_interval do
         fees = ProductFeeIntervalQuery.new(params[:product_period], params[:loan_times]).call
         loan_fees = fees.inject({}) do |h, f|
-          fd = f[0].dup
-          fee_type = fd.sub(/(min|max)_/, '')
-          prefix = fd.split('_')[0]
+          prefix, fee_type = f[0][0..2], f[0][4..-1]
           h[fee_type] ? h[fee_type].deep_merge!({ "#{prefix}" => f[1] }) : h[fee_type]={ "#{prefix}" => f[1] }
           h
         end
