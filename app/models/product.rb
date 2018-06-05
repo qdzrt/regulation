@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
 class Product < ApplicationRecord
-  enum period_unit: {D: 0, M: 1, Y: 2}
+
+  ZERO = 0
+  ONE = 1
+  TWO = 2
+
+  enum period_unit: {D: ZERO, M: ONE, Y: TWO}
   validates_presence_of :period_num, :period_unit, :name
 
   belongs_to :user

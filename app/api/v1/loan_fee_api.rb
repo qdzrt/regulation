@@ -11,6 +11,23 @@ module V1
         end
       end
 
+      desc '获取费率区间'
+      params do
+        requires :product_period, types: [Integer, String], desc: 'product_period'
+        requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
+        optional :fee_type, type: String, values: ['management', 'dayly', 'weekly', 'monthly'], desc: 'fee_type'
+      end
+      get :product_fee_interval do
+        fees = ProductFeeIntervalQuery.new(params[:product_period], params[:loan_times]).call
+        params[:fee_type] ? fees.select{|k, v| k.include? params[:fee_type] } : fees
+      end
+
+      desc '获取产品费率选项'
+      get 'loan_fee_options' do
+        fees = LoanFeeIntervalQuery.new.call
+        fees.inject({}){|h, f| h["#{f[:period_num]}"] = "#{f[:min_fee]}% ~ #{f[:max_fee]}%"; h}
+      end
+
       desc 'Get all loan fees'
       get do
         loan_fees = LoanFee.all
@@ -56,21 +73,6 @@ module V1
       end
       put ':id' do
         LoanFee.find(params[:id]).update!(permitted_params)
-      end
-
-      desc 'Get product loan fee interval'
-      get 'loan_fee_options' do
-
-      end
-
-      desc 'Fetch product loan fees interval'
-      params do
-        requires :product_period, type: String, desc: 'product_period'
-        requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
-        optional :fee_type, type: String, values: ['management_fee', 'dayly_fee', 'weekly_fee', 'monthly_fee'], desc: 'fee_type'
-      end
-      get 'product_fee_interval' do
-        ProductFee.product_fee_interval(params)
       end
     end
   end
