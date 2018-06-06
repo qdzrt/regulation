@@ -1,3 +1,6 @@
+# grape doesn't have an autoloading mechanism for custom validators
+require_relative 'validators/period'
+
 class API < Grape::API
   include APIExtensions
   format :json

@@ -6,6 +6,10 @@ module APIError
     #   "error: #{message} from #{backtrace}"
     # }
     #
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!({ messages: e.full_messages }, 400)
+    end
+
     # rescue_from :all do |e|
     #   Rails.logger.error(e)
     #   if e.respond_to?(:status)

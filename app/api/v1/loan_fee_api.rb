@@ -13,7 +13,7 @@ module V1
 
       desc '获取费率区间'
       params do
-        requires :product_period, types: [Integer, String], desc: 'product_period'
+        requires :product_period, period: true, desc: 'product_period'
         requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
         optional :fee_type, type: String, values: ['management', 'dayly', 'weekly', 'monthly'], desc: 'fee_type'
       end
