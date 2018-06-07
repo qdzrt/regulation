@@ -2,10 +2,8 @@ module V1
   class ProductAPI < Grape::API
     resource :products do
       before do
-        # authenticate!
-        def current_user
-          User.first
-        end
+        authenticate!
+
         def permitted_params
           @permitted_params ||= declared(params, include_missing: false).to_h
         end

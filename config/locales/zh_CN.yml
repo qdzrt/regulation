@@ -59,7 +59,8 @@ zh_CN:
         credit_eval:
           attributes:
             score_lt:
-              greater_than: "大于最低分"
+              greater_than: "大于%{count}"
+              less_than_or_equal_to: "小于等于%{count}"
         loan_fee:
           attributes:
             product:
@@ -68,5 +69,3 @@ zh_CN:
               required: "必选"
             user:
               required: "必选"
-
-

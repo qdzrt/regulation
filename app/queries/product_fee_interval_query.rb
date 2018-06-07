@@ -8,7 +8,7 @@ class ProductFeeIntervalQuery < BaseQuery
   end
 
   def call
-    ActiveRecord::Base.connection.exec_query(sql).first.to_hash
+    ActiveRecord::Base.connection.exec_query(sql).first.symbolize_keys!
   end
 
   private

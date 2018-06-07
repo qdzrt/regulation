@@ -1,6 +1,9 @@
 module V1
   class LoanFeeAPI < Grape::API
     resource :loan_fees do
+
+      helpers SharedParams
+
       before do
         # authenticate!
         def current_user
@@ -11,21 +14,35 @@ module V1
         end
       end
 
-      desc '获取费率区间'
+      desc '获取指定费率'
       params do
         requires :product_period, period: true, desc: 'product_period'
         requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
+        requires :credit_score, type: Integer, regexp: /\A[0-9]{1,3}\z/, desc: 'credit_score'
         optional :fee_type, type: String, values: ['management', 'dayly', 'weekly', 'monthly'], desc: 'fee_type'
+      end
+      get :loan_fee do
+        loan_fees = LoanFeeQuery.new(params[:product_period], params[:loan_times], params[:credit_score]).call
+        key = "#{params[:fee_type]}_fee"
+        params[:fee_type] && loan_fees.has_key?(key) ? loan_fees[key] : loan_fees
+      end
+
+      desc '获取指定产品费率区间'
+      params do
+        requires :product_period, period: true, desc: 'product_period'
+        requires :loan_times, type: Integer, values: [1,2], desc: 'loan_times'
+        optional :fee_type, type: String, values: ['management_fee', 'dayly_fee', 'weekly_fee', 'monthly_fee'], desc: 'fee_type'
       end
       get :product_fee_interval do
         fees = ProductFeeIntervalQuery.new(params[:product_period], params[:loan_times]).call
-        loan_fees = fees.inject({}) do |h, f|
-          prefix, fee_type = f[0][0..2], f[0][4..-1]
-          h[fee_type] ? h[fee_type].deep_merge!({ "#{prefix}" => f[1] }) : h[fee_type]={ "#{prefix}" => f[1] }
+        loan_fees = fees.inject({}) do |h, (k, v)|
+          key = k.to_s
+          prefix, fee_type = key[0..2], key[4..-1]
+          fee = { :"#{prefix}" => v }
+          h[fee_type]= h[fee_type] ? h[fee_type].deep_merge!(fee) : fee
           h
         end
-        key = "#{params[:fee_type]}_fee"
-        params[:fee_type] && loan_fees.has_key?(key) ? loan_fees[key] : loan_fees
+        params[:fee_type] && loan_fees.has_key?(params[:fee_type]) ? loan_fees[params[:fee_type]] : loan_fees
       end
 
       desc '获取产品费率选项'
@@ -35,9 +52,17 @@ module V1
       end
 
       desc 'Get all loan fees'
+      params do
+        optional :times, type: Integer, desc: "times"
+        optional :period, type: String, desc: "period"
+        optional :score_interval, type: String, desc: "score_interval"
+        use :order, order_by: %i(id created_at times), default_order_by: :id, default_order_type: :asc
+        use :pagination
+      end
       get do
-        loan_fees = LoanFee.all
+        loan_fees = LoanFee.filter(permitted_params).page(permitted_params['page']).per(permitted_params['per'])
         present :loan_fees, loan_fees, with: API::Entities::LoanFeeEntity
+        present :pagination, pagination(loan_fees), with: API::Entities::PaginationEntity
       end
 
       desc 'Return a loan fee'
@@ -75,7 +100,8 @@ module V1
         optional :weekly_fee, type: BigDecimal, desc: 'weekly_fee'
         optional :monthly_fee, type: BigDecimal, desc: 'monthly_fee'
         optional :times, type: Integer, desc: 'times'
-        at_least_one_of :product_id, :credit_eval_id, :management_fee, :dayly_fee, :weekly_fee, :monthly_fee, :times
+        optional :active, type: Boolean, desc: 'active'
+        at_least_one_of :product_id, :credit_eval_id, :management_fee, :dayly_fee, :weekly_fee, :monthly_fee, :times, :active
       end
       put ':id' do
         LoanFee.find(params[:id]).update!(permitted_params)

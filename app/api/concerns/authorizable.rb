@@ -17,8 +17,6 @@ module Authorizable
             if payload
               @current_user = User.find(payload['user']['id'])
             end
-          rescue JWT::ExpiredSignature
-            nil
           end
         end
       end

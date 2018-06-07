@@ -3,6 +3,8 @@ require_relative 'validators/period'
 
 class API < Grape::API
   include APIExtensions
+  include SharedParams
+
   format :json
   prefix :api
   version 'v1', using: :header, vendor: 'twitter'
@@ -11,6 +13,18 @@ class API < Grape::API
   mount V1::ProductAPI
   mount V1::CreditEvalAPI
   mount V1::LoanFeeAPI
+
+  helpers do
+    def pagination(collection)
+      {
+        total_count: collection.total_count,
+        total_pages: collection.total_pages,
+        current_page: collection.current_page,
+        next_page: collection.next_page,
+        prev_page: collection.prev_page
+      }
+    end
+  end
 
   if Rails.env.development?
     before do

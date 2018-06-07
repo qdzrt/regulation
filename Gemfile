@@ -42,6 +42,7 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
