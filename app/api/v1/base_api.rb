@@ -1,6 +1,5 @@
 module V1
   class BaseAPI < Grape::API
-    version 'v1'
 
     include APIExtensions
     include SharedParams

@@ -6,7 +6,6 @@ class LoanFee < ApplicationRecord
   belongs_to :product
   belongs_to :user
 
-  validates_presence_of :product_id, :credit_eval_id
   validates_with LoanFeeUniqValidator
   validates_with LoanFeeActiveConflictValidator
 
