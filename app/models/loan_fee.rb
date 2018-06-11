@@ -21,5 +21,4 @@ class LoanFee < ApplicationRecord
   scope :period, ->(period){ base.where({products: {period_num: period[0..-2], period_unit: period[-1]}}) }
   scope :score_interval, ->(scores){ gteq, lt = scores.split(','); base.where({credit_evals: {score_gteq: gteq, score_lt: lt}}) }
 
-
 end

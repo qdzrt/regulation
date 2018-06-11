@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -34,6 +34,9 @@ gem 'kaminari'
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
+
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
