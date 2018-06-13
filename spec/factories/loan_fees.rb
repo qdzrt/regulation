@@ -8,6 +8,6 @@ FactoryBot.define do
     dayly_fee 9.99
     weekly_fee 9.99
     monthly_fee 9.99
-    active false
+    active true
   end
 end

@@ -48,6 +48,7 @@ zh_CN:
             email:
               blank: "不能为空"
               invalid: "格式错误"
+              taken: "已存在"
             password:
               blank: "不能为空"
             password_confirmation:

@@ -31,6 +31,8 @@ module Regulation
 
     config.i18n.default_locale = :zh_CN
 
+    config.autoload_paths << Rails.root.join('lib')
+
     # for grape
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]

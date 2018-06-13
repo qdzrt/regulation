@@ -18,14 +18,7 @@ module V1
       end
       post :token do
         if auth_user && auth_user.active
-          payload = {
-            user: {
-              id: auth_user.id,
-              name: auth_user.name,
-              email: auth_user.email
-            }
-          }
-          token = authorization(payload)
+          token = JsonWebToken.encode({user_id: auth_user.id})
           {user: auth_user, token: token}
         else
           error!('Inactive', 401)
