@@ -7,12 +7,16 @@ describe V1::LoanFeeAPI do
     V1::LoanFeeAPI
   end
 
+  let(:user) { FactoryBot.create(:user) }
+  let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
+  let(:expired_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{expired_auth_headers(user.id)}"} }
+
   describe 'GET /api/v1/loan_fees.json' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
-    let(:expired_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{expired_auth_headers(user.id)}"} }
-    let!(:loan_fee) { FactoryBot.create(:loan_fee) }
-    let!(:loan_fee1) { FactoryBot.create(:loan_fee, times: 2, credit_eval_id: 1) }
+    let(:credit_eval) { FactoryBot.create(:credit_eval, score_gteq: 0, score_lt: 100)}
+    let(:credit_eval1) { FactoryBot.create(:credit_eval, score_gteq: 100, score_lt: 200)}
+    let!(:loan_fee) { FactoryBot.create(:loan_fee, credit_eval_id: credit_eval.id) }
+    let!(:loan_fee1) { FactoryBot.create(:loan_fee, credit_eval_id: credit_eval1.id) }
+    let!(:loan_fee2) { FactoryBot.create(:loan_fee, times: 2, credit_eval_id: credit_eval1.id) }
 
     context 'when request is invalid' do
       it 'return 401 when no token' do
@@ -28,26 +32,32 @@ describe V1::LoanFeeAPI do
 
     describe 'return a list of loan_fees' do
       context 'when request is valid' do
-        it 'return 200' do
+        it 'return all loan_fees' do
           get '/api/v1/loan_fees.json', nil, valid_headers
           expect(last_response.status).to eq 200
           json = JSON.parse(last_response.body)
-          expect(json['loan_fees'].size).to eq(2)
+          expect(json['loan_fees'].size).to eq 3
         end
       end
 
-      context 'when request is valid and has params' do
-        it 'return a list of loan_fees' do
+      context 'when filter params' do
+        it 'return loan_fees with filter times' do
           get '/api/v1/loan_fees', {times: loan_fee.times}, valid_headers
-          expect(last_response.status).to eq(200)
+          expect(last_response.status).to eq 200
+          expect(json_response[:loan_fees].size).to eq 2
+        end
+
+        it 'return loan_fees with filter period' do
+          period = [loan_fee.product.period_num, loan_fee.product.period_unit].join
+          get '/api/v1/loan_fees', {period: period}, valid_headers
+          expect(last_response.status).to eq 200
+          expect(json_response[:loan_fees].size).to eq 1
         end
       end
     end
   end
 
   describe 'POST /api/v1/loan_fees' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
     let(:product) {FactoryBot.create(:product)}
     let(:credit_eval) {FactoryBot.create(:credit_eval)}
     let(:expected_response) {product.to_json}
@@ -63,25 +73,33 @@ describe V1::LoanFeeAPI do
       }
     end
 
-    it 'return status 200' do
+    it 'work' do
       post '/api/v1/loan_fees', body, valid_headers
-      expect(last_response.status).to eq(201)
+      expect(last_response.status).to eq 201
       json = JSON.parse(last_response.body)
       expect(json['active']).to eq true
     end
 
     it 'require product' do
-
+      post '/api/v1/loan_fees', body.except(:product_id), valid_headers
+      expect(last_response.status).to eq 400
+      expect(json_response[:error]).to eq 'product_id is missing'
     end
 
     it 'require credit_eval' do
+      post '/api/v1/loan_fees', body.except(:credit_eval_id), valid_headers
+      expect(last_response.status).to eq 400
+      expect(json_response[:error]).to eq 'credit_eval_id is missing'
+    end
 
+    it 'require times' do
+      post '/api/v1/loan_fees', body.except(:times), valid_headers
+      expect(last_response.status).to eq 400
+      expect(json_response[:error]).to eq 'times is missing'
     end
   end
 
   describe 'PUT /api/v1/loan_fees/:id' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
     let(:loan_fee) {FactoryBot.create(:loan_fee)}
     let(:body) do
       {
@@ -98,6 +116,13 @@ describe V1::LoanFeeAPI do
       expect(last_loan_fee.times).to eq body[:times]
       expect(last_loan_fee.monthly_fee).to eq body[:monthly_fee]
       expect(last_loan_fee.active).to eq body[:active]
+      expect(last_loan_fee.user_id).to eq user.id
+    end
+
+    it 'invalid times' do
+      put "/api/v1/loan_fees/#{loan_fee.id}", body.merge({times: 3}), valid_headers
+      expect(last_response.status).to eq 400
+      expect(json_response[:error]).to eq 'times does not have a valid value'
     end
   end
 

@@ -1,6 +1,8 @@
 module V1
   class ProductAPI < Grape::API
     resource :products do
+      helpers SharedParams
+
       before do
         authenticate!
 
@@ -10,6 +12,9 @@ module V1
       end
 
       desc 'Get all products'
+      params do
+        use :order, order_by: %i(id), default_order_by: :id, default_order_type: :asc
+      end
       get do
         products = Product.all
         present :products, products, with: API::Entities::ProductEntity
@@ -42,10 +47,12 @@ module V1
         optional :period_num, type: Integer, desc: 'product period_num'
         optional :period_unit, type: String, desc: 'product period_unit'
         optional :active, type: Boolean, desc: 'product active'
-        at_least_one_of :name, :period_num, :period_unit, :active
+        at_least_one_of :name, :period_num, :period_unit, :actived
       end
       put ':id' do
-        Product.find(params[:id]).update!(permitted_params)
+        product = Product.find(params[:id])
+        product.update!(permitted_params)
+        product.update!(user: current_user)
       end
     end
   end

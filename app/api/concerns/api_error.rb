@@ -10,6 +10,10 @@ module APIError
       error_response(message: e.message, status: 404)
     end
 
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      error_response(message: e.message, status: 406)
+    end
+
     rescue_from Grape::Exceptions::ValidationErrors do |e|
       error_response(message: e.message, status: 400)
     end

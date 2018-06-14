@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :loan_fee, :class => :LoanFee do
-    credit_eval
-    product
+    association :product
+    association :credit_eval
     user
     times 1
     management_fee 9.99

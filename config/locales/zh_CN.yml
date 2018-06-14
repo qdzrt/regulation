@@ -69,6 +69,7 @@ zh_CN:
             score_gteq:
               blank: "不能为空"
               not_a_number: "必须是数字"
+              greater_than_or_equal_to: "大于等于%{count}"
             score_lt:
               blank: "不能为空"
               not_a_number: "必须是数字"

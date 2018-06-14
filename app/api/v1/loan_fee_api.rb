@@ -5,9 +5,9 @@ module V1
 
       before do
         authenticate!
-        # def current_user
-        #   User.first
-        # end
+        def current_user
+          User.first
+        end
         def permitted_params
           @permitted_params ||= declared(params, include_missing: false).to_h
         end
@@ -50,9 +50,9 @@ module V1
         fees.inject({}){|h, f| h["#{f[:period_num]}"] = "#{f[:min_fee]}% ~ #{f[:max_fee]}%"; h}
       end
 
-      desc 'Get all loan fees'
+      desc '获取指定条件下所有费率'
       params do
-        optional :times, type: Integer, desc: "times"
+        optional :times, type: Integer, values: [1,2], desc: "times"
         optional :period, type: String, desc: "period"
         optional :score_interval, type: String, desc: "score_interval"
         use :order, order_by: %i(id created_at times), default_order_by: :id, default_order_type: :asc
@@ -64,7 +64,7 @@ module V1
         present :pagination, pagination(loan_fees), with: API::Entities::PaginationEntity
       end
 
-      desc 'Return a loan fee'
+      desc '获取指定费率'
       params do
         requires :id, type: Integer, desc: 'loan_fee id'
       end
@@ -75,7 +75,7 @@ module V1
         end
       end
 
-      desc 'Create a loan fee'
+      desc '添加费率'
       params do
         requires :product_id, type: Integer, desc: 'product id'
         requires :credit_eval_id, type: Integer, desc: 'credit_eval id'
@@ -83,13 +83,13 @@ module V1
         optional :dayly_fee, type: BigDecimal, desc: 'dayly_fee'
         optional :weekly_fee, type: BigDecimal, desc: 'weekly_fee'
         optional :monthly_fee, type: BigDecimal, desc: 'monthly_fee'
-        requires :times, type: Integer, desc: "times"
+        requires :times, type: Integer, values: [1,2], fail_fast: true, desc: "times"
       end
       post do
         LoanFee.create!(permitted_params.merge({user: current_user, active: true}))
       end
 
-      desc 'Update a loan fee'
+      desc '更新费率'
       params do
         requires :id, type: Integer, desc: 'loan_fee id'
         optional :product_id, type: Integer, desc: 'product id'
@@ -98,12 +98,14 @@ module V1
         optional :dayly_fee, type: BigDecimal, desc: 'dayly_fee'
         optional :weekly_fee, type: BigDecimal, desc: 'weekly_fee'
         optional :monthly_fee, type: BigDecimal, desc: 'monthly_fee'
-        optional :times, type: Integer, desc: 'times'
+        optional :times, type: Integer, values: [1,2], desc: 'times'
         optional :active, type: Boolean, desc: 'active'
         at_least_one_of :product_id, :credit_eval_id, :management_fee, :dayly_fee, :weekly_fee, :monthly_fee, :times, :active
       end
       put ':id' do
-        LoanFee.find(params[:id]).update!(permitted_params)
+        loan_fee = LoanFee.find(params[:id])
+        loan_fee.update!(permitted_params)
+        loan_fee.update!(user: current_user)
       end
     end
   end

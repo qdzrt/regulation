@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :product, :class => :Product do
-    period_num 12
+    sequence(:period_num) {|n| n }
     period_unit 'M'
     name {"#{period_num}#{period_unit}"}
     association :user

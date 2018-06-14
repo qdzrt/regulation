@@ -4,10 +4,8 @@ module V1
 
     resource :users do
       before do
-        # authenticate!
-        def current_user
-          User.first
-        end
+        authenticate!
+
         def permitted_params
           @permitted_params ||= declared(params, include_missing: false).to_h
         end
@@ -47,9 +45,11 @@ module V1
         requires :id, type: String, desc: 'user id'
         optional :password, type: String, desc: 'user password'
         optional :password_confirmation, type: String, desc: 'user password confirmation'
+        optional :name, type: String, desc: 'user id'
+        optional :email, type: String, regexp: /\A([-a-z0-9+._]){1,64}@([-a-z0-9]+[.])+[a-z]{2,}\z/, desc: 'user email'
         optional :active, type: Boolean, desc: 'user active'
         all_or_none_of :password, :password_confirmation
-        at_least_one_of :password, :password_confirmation, :active
+        at_least_one_of :password, :name, :email, :active
       end
       put ':id' do
         User.find(params[:id]).update!(permitted_params)

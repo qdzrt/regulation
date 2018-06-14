@@ -41,13 +41,15 @@ module V1
       desc 'Update a credit_eval'
       params do
         requires :id, type: Integer, desc: 'credit_eval id'
-        optional :score_gteq, type: Integer, values: ->(v){ v > 0 }, desc: 'credit_eval score_gteq'
-        optional :score_lt, type: Integer, values: ->(v){ v > 0 && v.score_gteq < v.score_lt }, desc: 'credit_eval score_lt'
+        optional :score_gteq, type: Integer, desc: 'credit_eval score_gteq'
+        optional :score_lt, type: Integer, desc: 'credit_eval score_lt'
         optional :grade, type: String, desc: 'credit_eval grade'
         at_least_one_of :score_gteq, :score_lt, :grade
       end
       put ':id' do
-        CreditEval.find(params[:id]).update!(permitted_params)
+        credit_eval = CreditEval.find(params[:id])
+        credit_eval.update!(permitted_params)
+        credit_eval.update!(user: current_user)
       end
     end
   end
