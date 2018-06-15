@@ -8,13 +8,13 @@ describe V1::ProductAPI do
   end
 
   let(:user) { FactoryBot.create(:user) }
-  let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
-  let(:expired_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{expired_auth_headers(user.id)}"} }
+  let(:va_headers) { valid_headers user.id }
+  let(:ex_headers) { expired_headers user.id }
 
   describe 'GET /api/v1/products' do
     context 'when require is invalid' do
       it 'return 401' do
-        get '/api/v1/products', {}, expired_headers
+        get '/api/v1/products', {}, ex_headers
         expect(last_response.status).to eq 401
       end
     end
@@ -22,7 +22,7 @@ describe V1::ProductAPI do
     context 'when require is valid' do
       before {
         FactoryBot.create_list(:product, 5)
-        get '/api/v1/products', {}, valid_headers
+        get '/api/v1/products', {}, va_headers
       }
 
       it 'return 200' do
@@ -42,7 +42,7 @@ describe V1::ProductAPI do
     end
 
     it 'work' do
-      post '/api/v1/products', FactoryBot.attributes_for(:product), valid_headers
+      post '/api/v1/products', FactoryBot.attributes_for(:product), va_headers
       expect(last_response.status).to eq 201
     end
   end
@@ -57,8 +57,7 @@ describe V1::ProductAPI do
       }
     end
     it 'work' do
-      put "/api/v1/products/#{product.id}", body, valid_headers
-      puts last_response.body
+      put "/api/v1/products/#{product.id}", body, va_headers
       expect(last_response.status).to eq 200
       product = Product.first
       expect(product.name).to eq body[:name]

@@ -14,9 +14,24 @@ module Request
       JsonWebToken.encode({user_id: user_id}, Time.zone.now.to_i - 10)
     end
 
-    def valid_headers
+    def valid_token(user_id)
+      "Bearer #{auth_headers(user_id)}"
+    end
+
+    def expired_token(user_id)
+      "Bearer #{expired_auth_headers(user_id)}"
+    end
+
+    def valid_headers(user_id)
       {
-        'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}",
+        'HTTP_AUTHORIZATION' => valid_token(user_id),
+        'Content-Type' => 'application/json'
+      }
+    end
+
+    def expired_headers(user_id)
+      {
+        'HTTP_AUTHORIZATION' => expired_token(user_id),
         'Content-Type' => 'application/json'
       }
     end

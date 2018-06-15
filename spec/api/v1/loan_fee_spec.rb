@@ -8,8 +8,8 @@ describe V1::LoanFeeAPI do
   end
 
   let(:user) { FactoryBot.create(:user) }
-  let(:valid_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{auth_headers(user.id)}"} }
-  let(:expired_headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{expired_auth_headers(user.id)}"} }
+  let(:va_headers) { valid_headers user.id }
+  let(:ex_headers) { expired_headers user.id }
 
   describe 'GET /api/v1/loan_fees.json' do
     let(:credit_eval) { FactoryBot.create(:credit_eval, score_gteq: 0, score_lt: 100)}
@@ -25,7 +25,7 @@ describe V1::LoanFeeAPI do
       end
 
       it 'return 401 when expired token' do
-        get '/api/v1/loan_fees.json', {}, expired_headers
+        get '/api/v1/loan_fees.json', {}, ex_headers
         expect(last_response.status).to eq 401
       end
     end
@@ -33,7 +33,7 @@ describe V1::LoanFeeAPI do
     describe 'return a list of loan_fees' do
       context 'when request is valid' do
         it 'return all loan_fees' do
-          get '/api/v1/loan_fees.json', nil, valid_headers
+          get '/api/v1/loan_fees.json', nil, va_headers
           expect(last_response.status).to eq 200
           json = JSON.parse(last_response.body)
           expect(json['loan_fees'].size).to eq 3
@@ -42,14 +42,14 @@ describe V1::LoanFeeAPI do
 
       context 'when filter params' do
         it 'return loan_fees with filter times' do
-          get '/api/v1/loan_fees', {times: loan_fee.times}, valid_headers
+          get '/api/v1/loan_fees', {times: loan_fee.times}, va_headers
           expect(last_response.status).to eq 200
           expect(json_response[:loan_fees].size).to eq 2
         end
 
         it 'return loan_fees with filter period' do
           period = [loan_fee.product.period_num, loan_fee.product.period_unit].join
-          get '/api/v1/loan_fees', {period: period}, valid_headers
+          get '/api/v1/loan_fees', {period: period}, va_headers
           expect(last_response.status).to eq 200
           expect(json_response[:loan_fees].size).to eq 1
         end
@@ -58,6 +58,10 @@ describe V1::LoanFeeAPI do
   end
 
   describe 'POST /api/v1/loan_fees' do
+    before {
+      header 'Authorization', valid_token(user.id)
+    }
+
     let(:product) {FactoryBot.create(:product)}
     let(:credit_eval) {FactoryBot.create(:credit_eval)}
     let(:expected_response) {product.to_json}
@@ -74,26 +78,26 @@ describe V1::LoanFeeAPI do
     end
 
     it 'work' do
-      post '/api/v1/loan_fees', body, valid_headers
+      post '/api/v1/loan_fees', body
       expect(last_response.status).to eq 201
       json = JSON.parse(last_response.body)
       expect(json['active']).to eq true
     end
 
     it 'require product' do
-      post '/api/v1/loan_fees', body.except(:product_id), valid_headers
+      post '/api/v1/loan_fees', body.except(:product_id)
       expect(last_response.status).to eq 400
       expect(json_response[:error]).to eq 'product_id is missing'
     end
 
     it 'require credit_eval' do
-      post '/api/v1/loan_fees', body.except(:credit_eval_id), valid_headers
+      post '/api/v1/loan_fees', body.except(:credit_eval_id)
       expect(last_response.status).to eq 400
       expect(json_response[:error]).to eq 'credit_eval_id is missing'
     end
 
     it 'require times' do
-      post '/api/v1/loan_fees', body.except(:times), valid_headers
+      post '/api/v1/loan_fees', body.except(:times)
       expect(last_response.status).to eq 400
       expect(json_response[:error]).to eq 'times is missing'
     end
@@ -110,7 +114,8 @@ describe V1::LoanFeeAPI do
     end
 
     it 'work' do
-      put "/api/v1/loan_fees/#{loan_fee.id}", body, valid_headers
+      p user
+      put "/api/v1/loan_fees/#{loan_fee.id}", body, va_headers
       expect(last_response.status).to eq 200
       last_loan_fee = LoanFee.first
       expect(last_loan_fee.times).to eq body[:times]
@@ -120,7 +125,7 @@ describe V1::LoanFeeAPI do
     end
 
     it 'invalid times' do
-      put "/api/v1/loan_fees/#{loan_fee.id}", body.merge({times: 3}), valid_headers
+      put "/api/v1/loan_fees/#{loan_fee.id}", body.merge({times: 3}), va_headers
       expect(last_response.status).to eq 400
       expect(json_response[:error]).to eq 'times does not have a valid value'
     end

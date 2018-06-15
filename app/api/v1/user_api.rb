@@ -42,7 +42,7 @@ module V1
 
       desc 'Update a user'
       params do
-        requires :id, type: String, desc: 'user id'
+        requires :id, type: Integer, desc: 'user id'
         optional :password, type: String, desc: 'user password'
         optional :password_confirmation, type: String, desc: 'user password confirmation'
         optional :name, type: String, desc: 'user id'
@@ -52,7 +52,11 @@ module V1
         at_least_one_of :password, :name, :email, :active
       end
       put ':id' do
-        User.find(params[:id]).update!(permitted_params)
+        if permitted_params['id'] == current_user.id
+          User.find(params[:id]).update!(permitted_params)
+        else
+          error!('Forbidden', 403)
+        end
       end
     end
   end
