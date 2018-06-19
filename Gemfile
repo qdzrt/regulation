@@ -6,17 +6,17 @@ git_source(:github) do |repo_name|
 end
 
 
-gem 'rails', '~> 5.1.6'
-gem 'mysql2', '>= 0.3.18', '< 0.6.0'
-gem 'puma', '~> 3.7'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'rails', '5.2'
+gem 'mysql2'
+gem 'puma'
+gem 'sass-rails'
+gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'coffee-rails'
+gem 'turbolinks'
+gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 gem 'bcrypt'
@@ -30,6 +30,9 @@ gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
 gem 'kaminari'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'rspec'

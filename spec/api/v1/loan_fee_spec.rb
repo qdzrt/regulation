@@ -114,7 +114,6 @@ describe V1::LoanFeeAPI do
     end
 
     it 'work' do
-      p user
       put "/api/v1/loan_fees/#{loan_fee.id}", body, va_headers
       expect(last_response.status).to eq 200
       last_loan_fee = LoanFee.first

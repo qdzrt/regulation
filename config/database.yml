@@ -46,7 +46,7 @@ test:
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
-#
+# secret_key_base
 production:
   <<: *default
   database: regulation_production

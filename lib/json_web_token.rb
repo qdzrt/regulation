@@ -1,7 +1,7 @@
 # froze_literal_string: true
 
 class JsonWebToken
-  HMAC_SECRET = Rails.application.secrets.secret_key_base
+  HMAC_SECRET = Rails.application.credentials.fetch(:secret_key_base)
 
   def self.encode(payload, expires_in = 24.hours.from_now)
     payload[:exp] = expires_in.to_i
