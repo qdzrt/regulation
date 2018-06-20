@@ -1,7 +1,47 @@
 <%= form_for @user, html: {class: "form-horizontal", role: "form"} do |f|%>
-  <%= f.text_field :name %>
-  <%= f.text_field :email %>
-  <%= f.password_field :password %>
-  <%= f.password_field :password_confirmation %>
-  <%= f.submit '确定' %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="form-group text-center">
+      <h4>Oops!!出错啦...</h4>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "Name", class: "col-md-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, "Email", class: "col-md-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, "Password", class: "col-md-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :password, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "Password Confirmation", class: "col-md-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :password_confirmation, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <%= f.file_field :images, multiple: true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit '确定', class: "btn btn-default" %>
+    </div>
+  </div>
 <% end %>
