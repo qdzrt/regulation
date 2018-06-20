@@ -1,0 +1,8 @@
+<div>
+  <h1>Sign in</h1>
+  <%= form_for @user, url: sign_in_path do |f| %>
+    <%= f.text_field :email %>
+    <%= f.password_field :password %>
+    <%= f.submit '登录', class: 'btn btn-info' %>
+  <% end %>
+</div>

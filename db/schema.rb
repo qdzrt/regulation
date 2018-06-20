@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601080549) do
+ActiveRecord::Schema.define(version: 2018_06_01_080549) do
 
-  create_table "credit_evals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "credit_evals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "score_gteq"
     t.integer "score_lt"
     t.string "grade"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20180601080549) do
     t.index ["user_id"], name: "index_credit_evals_on_user_id"
   end
 
-  create_table "loan_fees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "loan_fees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "credit_eval_id"
     t.bigint "product_id"
     t.bigint "user_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180601080549) do
     t.index ["user_id"], name: "index_loan_fees_on_user_id"
   end
 
-  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.integer "period_num"
     t.integer "period_unit", default: 1
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20180601080549) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"

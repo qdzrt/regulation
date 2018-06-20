@@ -13,7 +13,7 @@ module V1
 
       desc 'authoriztion'
       params do
-        requires :name, type: String, desc: 'auth name'
+        requires :email, type: String, desc: 'auth email'
         requires :password, type: String, desc: 'auth password'
       end
       post :token do

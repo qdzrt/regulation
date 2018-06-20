@@ -16,6 +16,16 @@ class Product < ApplicationRecord
 
   delegate :name, to: :user, prefix: true
 
+  class << self
+    def period_unit_title
+      {
+        '天' => 'D',
+        '月' => 'M',
+        '年' => 'Y',
+      }
+    end
+  end
+
   def toggle_loan_fee
     self.loan_fees.update_all(active: active) if active == false
   end

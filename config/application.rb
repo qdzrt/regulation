@@ -16,6 +16,8 @@ module Regulation
     # -- all .rb files in that directory are automatically loaded.
     config.api_only = true
     config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
       g.test_framework :rspec,
                        fixtures: true,
                        view_specs: false,
@@ -33,6 +35,7 @@ module Regulation
 
     config.autoload_paths << Rails.root.join('lib')
 
+    config.api_only = false
     # for grape
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Regulation</title>
+    <title><%= content_for?(:title) ? yield(:title) : 'Regulation' %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,25 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="header">
+      <nav class="navbar navbar-fixed-top navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <%= link_to 'Regulation', nil, class: 'navbar-brand' %>
+          </div>
+          <div class="collpase navbar-collpase">
+            <%= render "layouts/navbar" %>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container container-top">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render 'layouts/flash' %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

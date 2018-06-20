@@ -9,18 +9,21 @@ end
 gem 'rails', '5.2'
 gem 'mysql2'
 gem 'puma'
-gem 'sass-rails'
-gem 'uglifier'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '~> 4.1.11'
 gem 'coffee-rails'
-gem 'turbolinks'
+gem 'jquery-rails'
+gem 'turbolinks', '~> 5.1.1'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 gem 'bcrypt'
-
 gem 'rack-cors'
 gem 'jwt'
 gem 'grape'
@@ -30,7 +33,6 @@ gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
 gem 'kaminari'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

@@ -1,0 +1,18 @@
+<div>
+  <table>
+    <th>name</th>
+    <th>period_num</th>
+    <th>period_unit</th>
+    <th>operate</th>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.period_num %></td>
+        <td><%= product.period_unit %></td>
+        <td><%= link_to 'edit', edit_product_path(product) %> <%= link_to 'delete', product_path(product), method: :destory, data: {confirm: '确定删除吗？'} %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<%= link_to 'new_product', new_product_path %>
+<%= link_to 'products', products_path %>

@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   class << self
     def authorize!(credentials)
-      find_by(name: credentials[:name]).try(:authenticate, credentials[:password])
+      find_by(email: credentials[:email]).try(:authenticate, credentials[:password])
     end
   end
 

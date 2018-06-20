@@ -11,7 +11,7 @@ describe V1::AuthAPI do
     let(:user) { FactoryBot.create(:user, active: active) }
     let(:body) do
       {
-        name: user.name,
+        email: user.email,
         password: user.password
       }
     end
