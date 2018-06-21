@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   post '/sign_in', to: 'sessions#create'
   delete '/sign_out', to: 'sessions#destroy', as: 'sign_out'
 
-  resources :users
+  delete '/delete_attachment', to: 'attachments#destroy', as: 'delete_attachment'
+
+  resources :users do
+    member do
+      delete 'del_images'
+    end
+  end
   resources :products
 
   mount API => '/'

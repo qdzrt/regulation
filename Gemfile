@@ -33,8 +33,8 @@ gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
 gem 'kaminari'
-gem 'image_processing', '~> 1.2'
 
+gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :del_images]
 
   def index
-    @users = User.all
+    @users = User.all.with_attached_images
   end
 
   def show
@@ -39,6 +39,15 @@ class UsersController < ApplicationController
       flash[:notice] = '删除成功'
     else
       flash[:notice] = '删除失败'
+    end
+    redirect_to users_path
+  end
+
+  def del_images
+    if params[:attachment_id]
+      @user.images.find(params[:attachment_id]).purge
+    elsif params[:purge]
+      @user.images.purge_later
     end
     redirect_to users_path
   end
