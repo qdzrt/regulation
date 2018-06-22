@@ -5,6 +5,10 @@ rake grape:routes
 
 api document: http://localhost:3000/docs
 
+## ActiveStorage
+use Qiniu
+
+
 ## Credentials
 ```irb
 EDITOR=vim bin/rails credentials:edit  # 使用VIM编辑

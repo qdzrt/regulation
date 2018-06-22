@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       flash[:notice] = '添加成功'
       redirect_to products_path
     else
-      flash[:notice] = '添加失败'
+      flash[:error] = '添加失败'
       render :new
     end
   end
@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
       flash[:notice] = '更新成功'
       redirect_to products_path
     else
-      flash[:notice] = '更新失败'
+      flash[:error] = '更新失败'
       render :edit
     end
   end
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
     if @product.delete
       flash[:notice] = '删除成功'
     else
-      flash[:notice] = '删除失败'
+      flash[:error] = '删除失败'
     end
     redirect_to products_path
   end

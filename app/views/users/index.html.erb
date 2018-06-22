@@ -1,24 +1,37 @@
+<%= content_for(:title) {'用户管理'}%>
 <div>
-  <table>
-    <th>name</th>
-    <th>email</th>
-    <th>image</th>
-    <th>operate</th>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td>
-          <% if user.images.attached? %>
-            <% user.images.each do |image| %>
-              <%= image_tag image.variant(resize: "100x100"), class: "img-circle", alt: image.filename %>
-            <% end %>
-          <% end %>
-        </td>
-        <td><%= link_to 'show', user_path(user) %> <%= link_to 'edit', edit_user_path(user) %> <%= link_to 'delete', user_path(user), method: :delete, data: {confirm: '确定删除吗？'}%></td>
-      </tr>
-    <% end %>
-  </table>
   <%= link_to 'new user', new_user_path %>
   <%= link_to 'users', users_path %>
+  <div class="table-responsive">
+    <table class="table">
+      <th>name</th>
+      <th>email</th>
+      <th>images</th>
+      <th>documents</th>
+      <th>operate</th>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if user.images.attached? %>
+              <% user.images.each do |image| %>
+                <%= image_tag image.variant(resize: "80x80"), class: "img-circle", alt: image.filename %>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if user.documents.attached? %>
+              <ul>
+                <% user.documents.each do |document| %>
+                  <li><%= link_to document.filename, document, target: :blank %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+          <td><%= link_to 'show', user_path(user) %> <%= link_to 'edit', edit_user_path(user) %> <%= link_to 'delete', user_path(user), method: :delete, data: {confirm: '确定删除吗？'}%></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

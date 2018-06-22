@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many_attached :images
+  has_many_attached :documents
 
   validates_presence_of :password, :password_confirmation, on: :create
   validates :email, presence: true, uniqueness: true, format: { with: /\A([-a-z0-9+._]){1,64}@([-a-z0-9]+[.])+[a-z]{2,}\z/ }

@@ -9,18 +9,20 @@
   </head>
 
   <body>
-    <div class="header">
-      <nav class="navbar navbar-fixed-top navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <%= link_to 'Regulation', nil, class: 'navbar-brand' %>
+    <% if current_user %>
+      <div class="header">
+        <nav class="navbar navbar-fixed-top navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+              <%= link_to 'Regulation', nil, class: 'navbar-brand' %>
+            </div>
+            <div class="collpase navbar-collpase">
+              <%= render "layouts/navbar" %>
+            </div>
           </div>
-          <div class="collpase navbar-collpase">
-            <%= render "layouts/navbar" %>
-          </div>
-        </div>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    <% end %>
     <div class="container container-top">
       <div class="row">
         <div class="col-md-12">

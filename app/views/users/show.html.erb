@@ -20,4 +20,11 @@
       <%= link_to 'delete', del_images_user_path(@user, attachment_id: image), method: :delete, data: {confirm: '确定删除吗？'} %>
     <% end %>
   <% end %>
+  <% if @user.documents.attached? %>
+    <ul>
+      <% @user.documents.each do |document| %>
+        <li><%= link_to document.filename, document, target: :blank %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>

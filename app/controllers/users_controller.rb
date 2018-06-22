@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     if @user.delete
       flash[:notice] = '删除成功'
     else
-      flash[:notice] = '删除失败'
+      flash[:error] = '删除失败'
     end
     redirect_to users_path
   end
@@ -59,6 +59,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, images: [])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, images: [], documents: [])
   end
 end

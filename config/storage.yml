@@ -32,3 +32,9 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+qiniu:
+  service: Qiniu
+  access_key: <%= Rails.application.credentials.dig(:qiniu, :access_key) %>
+  secret_key: <%= Rails.application.credentials.dig(:qiniu, :secret_key) %>
+  bucket: lotus
+  domain: ol1rqfn9r.bkt.clouddn.com
