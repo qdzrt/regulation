@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :ensure_sign_in
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(id: [session[:user_id], cookies.signed[:user_id]]) if session[:user_id] || cookies.signed[:user_id]
   end
 
   def sign_in?
@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
 
   def sign_out
     session[:user_id] = nil
+    cookies.delete(:user_id)
   end
 
   def after_sign_in_path

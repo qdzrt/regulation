@@ -10,6 +10,11 @@ class SessionsController < ApplicationController
     user = User.authorize!(user_params)
     if user.try(:active)
       sign_in user
+      if params[:remember_me]
+        cookies.signed[:user_id] = {value: user.id, expiry: 60.days}
+      else
+        cookies.delete(:user_id)
+      end
       redirect_to after_sign_in_path
     else
       if user
@@ -30,6 +35,6 @@ class SessionsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.permit(:email, :password, :remember_me)
   end
 end
