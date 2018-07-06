@@ -1,36 +1,15 @@
-<div class="col-sm-offset-4 col-sm-4 content-top">
-  <%= form_for @user, html: {class: "form-horizontal", role: "form"} do |f|%>
-    <% if @user.errors.any? %>
-      <div id="error_explanation" class="form-group text-center">
-        <h4>Oops!!出错啦...</h4>
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= f.text_field :name, class: "form-control", placeholder: '输入姓名' %>
-    </div>
-    <div class="form-group">
-      <%= f.text_field :email, class: "form-control", placeholder: '输入邮箱' %>
-    </div>
-    <div class="form-group">
-      <%= f.password_field :password, class: "form-control", placeholder: '输入密码' %>
-    </div>
-    <div class="form-group">
-      <%= f.password_field :password_confirmation, class: "form-control", placeholder: '输入确认密码' %>
-    </div>
-    <div class="form-group">
-      <%= f.submit '确定', class: "btn btn-primary btn-block" %>
-    </div>
+<div class="col-sm-offset-4 col-sm-4 content-top sign_up">
+  <%= simple_form_for @user, html: {class: "form-horizontal", role: "form"} do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <%= f.input :name, class: "form-control", placeholder: '输入姓名' %>
+    <%= f.input :email, class: "form-control", placeholder: '输入邮箱' %>
+    <%= f.input :password, class: "form-control", placeholder: '输入密码' %>
+    <%= f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码' %>
+    <%= f.button :submit, class: "btn btn-primary btn-block" %>
     <% if action_name == 'new' %>
-      <div class="form-group">
-        <%= f.check_box :terms_of_service %>
+        <%= f.input :terms_of_service, as: :boolean %>
         <%= link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"} %>
-      </div>
     <% end %>
   <% end %>
 </div>

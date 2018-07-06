@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_20_055733) do
+ActiveRecord::Schema.define(version: 2018_07_06_065652) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,25 @@ ActiveRecord::Schema.define(version: 2018_06_20_055733) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "role_ships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "roleable_type"
+    t.bigint "roleable_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_role_ships_on_role_id"
+    t.index ["roleable_type", "roleable_id"], name: "index_role_ships_on_roleable_type_and_roleable_id"
+  end
+
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_roles_on_code"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -87,4 +106,5 @@ ActiveRecord::Schema.define(version: 2018_06_20_055733) do
   add_foreign_key "loan_fees", "products"
   add_foreign_key "loan_fees", "users"
   add_foreign_key "products", "users"
+  add_foreign_key "role_ships", "roles"
 end

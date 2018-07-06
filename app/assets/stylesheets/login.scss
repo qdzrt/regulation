@@ -13,19 +13,22 @@ body{
 .navbar-default {
   background-color: transparent;
   border-color: transparent;
+  &:hover {
+    background-color: #2a31397d;
+  }
+
+  .navbar-nav > li > a {
+    color: white;
+    &:hover {
+      color: #ff8140;
+    }
+  }
+  .navbar-brand {
+    color: white;
+    &:hover, &:focus {
+      color: #ff8140;
+    }
+  }
 }
-.navbar-default:hover {
-  background-color: #2a31397d;
-}
-.navbar-default .navbar-nav > li > a {
-  color: white;
-}
-.navbar-default .navbar-nav > li > a:hover {
-  color: #ff8140;
-}
-.navbar-default .navbar-brand {
-  color: white;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #ff8140;
-}
+
+

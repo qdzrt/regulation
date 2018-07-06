@@ -15,7 +15,12 @@ zh_CN:
         password: "密码"
         password_confirmation: "确认密码"
         active: "激活状态"
-        terms_of_service: "服务协议"
+        terms_of_service: "同意服务协议"
+      role:
+        code: "角色代码"
+        name: "角色名称"
+      role_ship:
+        role: "角色"
       credit_eval:
         score_gteq: "最低分"
         score_lt: "最高分"
@@ -57,6 +62,12 @@ zh_CN:
               blank: "不能为空"
             terms_of_service:
               accepted: "必须同意"
+        role:
+          attributes:
+            code:
+              blank: "不能为空"
+            name:
+              blank: "不能为空"
         product:
           attributes:
             user:

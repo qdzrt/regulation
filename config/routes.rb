@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   delete '/delete_attachment', to: 'attachments#destroy', as: 'delete_attachment'
 
   namespace :admin do
+    resources :roles
     resources :users do
       member do
         delete 'del_images'
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
       delete 'del_images'
     end
   end
+
+
 
   mount API => '/'
   if Rails.env.development?

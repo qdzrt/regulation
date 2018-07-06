@@ -6,11 +6,6 @@ module ApplicationHelper
     error: 'alert alert-dismissible alert-danger',
   }
 
-  STATUS_CSS = {
-    true: 'status-u user-active',
-    false: 'status-u user-inactive'
-  }
-
   def period_unit_options
     options_for_select(Product.period_unit_title, 'M')
   end
@@ -20,7 +15,6 @@ module ApplicationHelper
   end
 
   def user_status(status)
-    s = status.to_s.to_sym
-    content_tag :span, User::STATUS[s], class: STATUS_CSS[s]
+    content_tag :span, User::STATUS[status.to_s.to_sym], class: status ? %w(label label-success) : %w(label label-default)
   end
 end

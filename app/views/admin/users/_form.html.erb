@@ -1,15 +1,16 @@
-<%= form_for [:admin, @user], html: {class: "form-horizontal", role: "form"} do |f|%>
-  <% if @user.errors.any? %>
-    <div id="error_explanation" class="form-group text-center">
-      <h4>Oops!!出错啦...</h4>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= simple_form_for [:admin, @user], html: {class: "form-horizontal", role: "form"} do |f|%>
+  <!--<% if @user.errors.any? %>-->
+    <!--<div id="error_explanation" class="form-group text-center">-->
+      <!--<h4>Oops!!出错啦...</h4>-->
+      <!--<ul>-->
+        <!--<% @user.errors.full_messages.each do |message| %>-->
+          <!--<li><%= message %></li>-->
+        <!--<% end %>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--<% end %>-->
+  <%= f.error :base %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence %>
   <div class="form-group">
     <%= f.label :name, "姓名", class: "col-md-2 control-label" %>
     <div class="col-sm-9">

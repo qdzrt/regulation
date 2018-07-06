@@ -26,7 +26,7 @@ $mp:15px;
 .content-top {
   margin-top: 200px;
 }
-
+// sign_in
 .login {
   width: 426px;
   margin-top: 300px;
@@ -52,6 +52,12 @@ $mp:15px;
   .input-group-addon {
     background-color: white;
   }
+}
+// sign_up
+.sign_up a:focus {
+  color: #337ab7;
+  outline:none;
+  text-decoration: none;
 }
 
 // direct-upload start
@@ -88,16 +94,3 @@ input[type=file][data-direct-upload-url][disabled] {
   display: none;
 }
 //direct-upload end
-// user
-.status-u {
-  color: white;
-  padding: .3em 1em .3em 1em;
-  font-size: 75%;
-  border-radius: .25em;
-}
-.user-active {
-  background-color: #5cb85c;
-}
-.user-inactive {
-  background-color: #777777;
-}
