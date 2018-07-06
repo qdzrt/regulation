@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
     @product.user = current_user
     if @product.save
       flash[:notice] = '添加成功'
-      redirect_to products_path
+      redirect_to admin_products_path
     else
       flash[:error] = '添加失败'
       render :new
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   def update
     if @product.update(product_params)
       flash[:notice] = '更新成功'
-      redirect_to products_path
+      redirect_to admin_products_path
     else
       flash[:error] = '更新失败'
       render :edit
@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
     else
       flash[:error] = '删除失败'
     end
-    redirect_to products_path
+    redirect_to admin_products_path
   end
 
   private

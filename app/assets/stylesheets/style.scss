@@ -2,12 +2,58 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 body{
-  background: #e9eaed;
+  //background: #e9eaed;
   letter-spacing: .03em;
   .container-top{
     margin-top: 60px;
   }
+  //.content-box {
+  //  background-color: white;
+  //  min-height: 900px;
+  //}
 }
+
+$mp:15px;
+
+.common-content {
+  margin-top: 20px;
+  padding-left: $mp;
+  padding-right: $mp;
+}
+.float-r {
+  float: right;
+}
+.content-top {
+  margin-top: 200px;
+}
+
+.login {
+  width: 426px;
+  margin-top: 300px;
+  margin-left: -40px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 40px 80px 5px 80px;
+  color: white;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: pink;
+    text-decoration: none;
+  }
+  input {
+    //color: white;
+    border-left-color: transparent;
+  }
+  .input-group-addon {
+    background-color: white;
+  }
+}
+
 // direct-upload start
 .direct-upload {
   display: inline-block;
@@ -19,11 +65,9 @@ body{
   font-size: 11px;
   line-height: 13px;
 }
-
 .direct-upload--pending {
   opacity: 0.6;
 }
-
 .direct-upload__progress {
   position: absolute;
   top: 0;
@@ -34,16 +78,26 @@ body{
   transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
   transform: translate3d(0, 0, 0);
 }
-
 .direct-upload--complete .direct-upload__progress {
   opacity: 0.4;
 }
-
 .direct-upload--error {
   border-color: red;
 }
-
 input[type=file][data-direct-upload-url][disabled] {
   display: none;
 }
 //direct-upload end
+// user
+.status-u {
+  color: white;
+  padding: .3em 1em .3em 1em;
+  font-size: 75%;
+  border-radius: .25em;
+}
+.user-active {
+  background-color: #5cb85c;
+}
+.user-inactive {
+  background-color: #777777;
+}

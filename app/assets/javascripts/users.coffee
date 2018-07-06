@@ -8,3 +8,5 @@ $ ->
       url: '/users/delete_img',
       success: res ->
         console.log($(this).html())
+
+

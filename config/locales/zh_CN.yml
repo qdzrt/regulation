@@ -15,6 +15,7 @@ zh_CN:
         password: "密码"
         password_confirmation: "确认密码"
         active: "激活状态"
+        terms_of_service: "服务协议"
       credit_eval:
         score_gteq: "最低分"
         score_lt: "最高分"
@@ -54,6 +55,8 @@ zh_CN:
             password_confirmation:
               confirmation: "请确认密码"
               blank: "不能为空"
+            terms_of_service:
+              accepted: "必须同意"
         product:
           attributes:
             user:

@@ -8,7 +8,7 @@
 
   <div>
     <% if @user.images.attached? %>
-      <%= link_to 'delete all', del_images_user_path(@user, purge: true), method: :delete, data: {confirm: '确定全部删除吗？'} %>
+      <%= link_to 'delete all', del_images_admin_user_path(@user, purge: true), method: :delete, data: {confirm: '确定全部删除吗？'} %>
       <% @user.images.each do |image| %>
         <div>
           <%= image_tag image.variant(resize: "80x80"), class: "img-circle", alt: image.filename %>
@@ -16,7 +16,7 @@
         </div>
         <!--<%= url_for image %>-->
         <!--<%= rails_blob_path image, disposition: 'image' %>-->
-        <%= link_to 'delete', del_images_user_path(@user, attachment_id: image), method: :delete, data: {confirm: '确定删除吗？'} %>
+        <%= link_to 'delete', del_images_admin_user_path(@user, attachment_id: image), method: :delete, data: {confirm: '确定删除吗？'} %>
       <% end %>
     <% end %>
 

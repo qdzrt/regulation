@@ -1,52 +1,38 @@
-<%= form_for @user, html: {class: "form-horizontal", role: "form"} do |f|%>
-  <% if @user.errors.any? %>
-    <div id="error_explanation" class="form-group text-center">
-      <h4>Oops!!出错啦...</h4>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="col-sm-offset-4 col-sm-4 content-top">
+  <%= form_for @user, html: {class: "form-horizontal", role: "form"} do |f|%>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="form-group text-center">
+        <h4>Oops!!出错啦...</h4>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="form-group">
-    <%= f.label :name, "Name", class: "col-md-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :name, class: "form-control" %>
+    <div class="form-group">
+      <%= f.text_field :name, class: "form-control", placeholder: '输入姓名' %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :email, "Email", class: "col-md-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :email, class: "form-control" %>
+    <div class="form-group">
+      <%= f.text_field :email, class: "form-control", placeholder: '输入邮箱' %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :password, "Password", class: "col-md-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :password, class: "form-control" %>
+    <div class="form-group">
+      <%= f.password_field :password, class: "form-control", placeholder: '输入密码' %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :password_confirmation, "Password Confirmation", class: "col-md-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :password_confirmation, class: "form-control" %>
+    <div class="form-group">
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: '输入确认密码' %>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.file_field :images, multiple: true %>
+    <div class="form-group">
+      <%= f.submit '确定', class: "btn btn-primary btn-block" %>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.file_field :documents, multiple: true, direct_upload: true %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit '确定', class: "btn btn-default" %>
-    </div>
-  </div>
-<% end %>
+    <% if action_name == 'new' %>
+      <div class="form-group">
+        <%= f.check_box :terms_of_service %>
+        <%= link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"} %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render 'commons/privacy_policy_modal' %>

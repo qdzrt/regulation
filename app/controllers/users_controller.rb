@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :del_images]
+  skip_before_action :ensure_sign_in
 
-  def index
-    @users = User.all.with_attached_images
-  end
+  before_action :set_user, only: [:show, :edit, :update, :del_images]
 
   def show
   end
@@ -14,11 +12,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.active = true
     if @user.save
+      sign_in @user
       flash[:notice] = '添加成功'
-      redirect_to users_path
+      redirect_to after_sign_in_path
     else
-      render :new
+      flash[:error] = @user.errors.full_messages.join(',')
+      redirect_to sign_up_path
     end
   end
 
@@ -28,19 +29,10 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = '更新成功'
-      redirect_to users_path
+      redirect_to user_path
     else
       render :edit
     end
-  end
-
-  def destroy
-    if @user.delete
-      flash[:notice] = '删除成功'
-    else
-      flash[:error] = '删除失败'
-    end
-    redirect_to users_path
   end
 
   def del_images
@@ -49,7 +41,7 @@ class UsersController < ApplicationController
     elsif params[:purge]
       @user.images.purge_later
     end
-    redirect_to users_path
+    redirect_to user_path
   end
 
   private
@@ -59,6 +51,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, images: [], documents: [])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :terms_of_service)
   end
 end

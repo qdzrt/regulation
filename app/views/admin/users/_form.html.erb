@@ -1,0 +1,60 @@
+<%= form_for [:admin, @user], html: {class: "form-horizontal", role: "form"} do |f|%>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="form-group text-center">
+      <h4>Oops!!出错啦...</h4>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "姓名", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, "邮箱", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, "密码", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "确认密码", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :images, "图片", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.file_field :images, multiple: true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :documents, "文档", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.file_field :documents, multiple: true, direct_upload: true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :active, "是否激活", class: "col-md-2 control-label" %>
+    <div class="col-sm-9">
+      <%= f.check_box :active %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+      <%= f.submit '确定', class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>

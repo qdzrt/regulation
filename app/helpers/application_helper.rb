@@ -1,9 +1,14 @@
 module ApplicationHelper
   FLASH_CSS_MAP = {
-    notice: 'alert alert-dismissible alert-success ',
+    notice: 'alert alert-dismissible alert-success',
     info: 'alert alert-dismissible alert-info',
     warning: 'alert alert-dismissible alert-warning',
     error: 'alert alert-dismissible alert-danger',
+  }
+
+  STATUS_CSS = {
+    true: 'status-u user-active',
+    false: 'status-u user-inactive'
   }
 
   def period_unit_options
@@ -12,5 +17,10 @@ module ApplicationHelper
 
   def flash_css(type)
     FLASH_CSS_MAP[type.to_sym]
+  end
+
+  def user_status(status)
+    s = status.to_s.to_sym
+    content_tag :span, User::STATUS[s], class: STATUS_CSS[s]
   end
 end

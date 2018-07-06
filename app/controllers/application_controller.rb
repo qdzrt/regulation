@@ -21,13 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path
-    users_path
+    home_path
   end
+
   helper_method :current_user
 
   private
 
   def ensure_sign_in
-    redirect_to sign_in_path if not sign_in?
+    redirect_to home_path unless sign_in?
   end
 end
