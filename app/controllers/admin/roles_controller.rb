@@ -28,10 +28,10 @@ class Admin::RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to [:admin, @role], notice: 'Role was successfully created.' }
-        format.json { render :show, status: :created, location: [:admin, @role] }
+        format.html { redirect_to admin_roles_path, notice: '创建成功！' }
+        format.json { render :show, status: :created, location: admin_roles_path }
       else
-        format.html { render :new }
+        format.html { redirect_to admin_roles_path }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
     end
@@ -42,8 +42,8 @@ class Admin::RolesController < ApplicationController
   def update
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to [:admin, @role], notice: 'Role was successfully updated.' }
-        format.json { render :show, status: :ok, location: [:admin, @role] }
+        format.html { redirect_to admin_roles_path, notice: '更新成功！' }
+        format.json { render :show, status: :ok, location: admin_roles_path }
       else
         format.html { render :edit }
         format.json { render json: @role.errors, status: :unprocessable_entity }
@@ -56,7 +56,7 @@ class Admin::RolesController < ApplicationController
   def destroy
     @role.destroy
     respond_to do |format|
-      format.html { redirect_to admin_roles_url, notice: 'Role was successfully destroyed.' }
+      format.html { redirect_to admin_roles_path, notice: '该角色已删除！' }
       format.json { head :no_content }
     end
   end

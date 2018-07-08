@@ -3,9 +3,9 @@ module Filterable
 
   module ClassMethods
     def filter(filtering_params = {})
-      filtering = filtering_params_order(filtering_params)
-      filtering.deep_symbolize_keys!
-      filtering.inject(all) do |relation, (scope, value)|
+      # filtering = filtering_params_order(filtering_params)
+      # filtering.deep_symbolize_keys!
+      filtering_params.inject(all) do |relation, (scope, value)|
         if value.present? && scope == :order
           relation.public_send(value[:order_type], value[:order_by])
         elsif value.present?

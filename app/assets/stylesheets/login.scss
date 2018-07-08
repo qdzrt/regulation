@@ -4,7 +4,11 @@ body{
   background-size: 100% 100%;
   background-attachment: fixed;
 }
-
+.main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 // navbar
 .navbar {
   min-height: 60px;
@@ -14,9 +18,8 @@ body{
   background-color: transparent;
   border-color: transparent;
   &:hover {
-    background-color: #2a31397d;
+    background: rgba(0, 0, 0, 0.25)
   }
-
   .navbar-nav > li > a {
     color: white;
     &:hover {
@@ -30,5 +33,27 @@ body{
     }
   }
 }
-
-
+// sign_in
+.login {
+  width: 426px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 40px 80px 5px 80px;
+  color: white;
+  margin: auto;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: pink;
+    text-decoration: none;
+  }
+  input {
+    border-left-color: transparent;
+  }
+  .input-group-addon {
+    background-color: white;
+  }
+}

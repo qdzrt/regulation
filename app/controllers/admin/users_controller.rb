@@ -2,7 +2,9 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :del_images]
 
   def index
-    @users = User.all.with_attached_images
+    page = params[:page] || 1
+    per = params[:per] || 30
+    @users = User.includes(:roles).with_attached_images.page(page).per(per)
   end
 
   def show
@@ -59,6 +61,10 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :active, images: [], documents: [])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :active, role_ids: [], images: [], documents: [])
+  end
+
+  def query_params
+    params.slice(:search)
   end
 end

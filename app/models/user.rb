@@ -2,6 +2,9 @@
 
 class User < ApplicationRecord
 
+  include Filterable
+  include Roleable
+
   STATUS = {
     true: '激活',
     false: '未激活'
@@ -9,8 +12,6 @@ class User < ApplicationRecord
 
   has_many_attached :images
   has_many_attached :documents
-  has_many :role_ships, as: :roleable, dependent: :destroy
-  has_many :roles, through: :role_ships
 
   validates :name, presence: true
   validates_presence_of :password, :password_confirmation, on: :create
@@ -20,7 +21,6 @@ class User < ApplicationRecord
   validates_acceptance_of :terms_of_service, on: :create
 
   has_secure_password
-
   # scope :with_eager_loaded_images, -> { eager_load(images_attachments: :blob) }
 
   class << self

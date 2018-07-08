@@ -1,57 +1,32 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+html, body, .main {
+  height: 100%;
+}
 body{
-  //background: #e9eaed;
   letter-spacing: .03em;
-  .container-top{
-    margin-top: 60px;
-  }
-  //.content-box {
-  //  background-color: white;
-  //  min-height: 900px;
-  //}
 }
-
+.main {
+  padding-top: 60px;
+}
 $mp:15px;
-
-.common-content {
-  margin-top: 20px;
-  padding-left: $mp;
-  padding-right: $mp;
-}
 .float-r {
   float: right;
 }
 .content-top {
   margin-top: 200px;
 }
-// sign_in
-.login {
-  width: 426px;
-  margin-top: 300px;
-  margin-left: -40px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 40px 80px 5px 80px;
-  color: white;
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
-  a:hover {
-    color: pink;
-    text-decoration: none;
-  }
-  input {
-    //color: white;
-    border-left-color: transparent;
-  }
-  .input-group-addon {
-    background-color: white;
-  }
+.flash {
+  margin-left: -15px;
+}
+.paginate{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.panel-body {
+  display: inline-flex;
 }
 // sign_up
 .sign_up a:focus {
@@ -59,7 +34,6 @@ $mp:15px;
   outline:none;
   text-decoration: none;
 }
-
 // direct-upload start
 .direct-upload {
   display: inline-block;

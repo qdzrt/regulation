@@ -4,9 +4,11 @@ zh_CN:
   activerecord:
     models:
       user: "用户"
+      role: "角色"
       credit_eval: "信用分"
       product: "产品"
       loan_fee: "费率"
+
 
     attributes:
       user:
@@ -19,6 +21,7 @@ zh_CN:
       role:
         code: "角色代码"
         name: "角色名称"
+        description: "描述"
       role_ship:
         role: "角色"
       credit_eval:
@@ -51,6 +54,8 @@ zh_CN:
       models:
         user:
           attributes:
+            name:
+              blank: "不能为空"
             email:
               blank: "不能为空"
               invalid: "格式错误"
@@ -66,8 +71,10 @@ zh_CN:
           attributes:
             code:
               blank: "不能为空"
+              invalid: "必须是字母"
             name:
               blank: "不能为空"
+              invalid: "必须是中文"
         product:
           attributes:
             user:
@@ -103,3 +110,11 @@ zh_CN:
               blank: "不能为空"
             credit_eval_id:
               blank: "不能为空"
+
+  views:
+     pagination:
+       first: "&laquo; 第一页"
+       last: "最后一页 &raquo;"
+       next: "下一页 &rsaquo;"
+       previous: "&lsaquo; 上一页"
+       truncate: "&hellip;"

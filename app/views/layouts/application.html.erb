@@ -22,11 +22,15 @@
         </div>
       </nav>
     </div>
-    <div class="container container-top">
-      <div class="row content-box">
-        <div class="col-md-12">
-          <%= render 'layouts/flash' %>
-          <%= yield %>
+    <div class="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="flash">
+              <%= render 'layouts/flash' %>
+            </div>
+            <%= yield %>
+          </div>
         </div>
       </div>
     </div>

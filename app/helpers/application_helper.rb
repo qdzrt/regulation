@@ -17,4 +17,8 @@ module ApplicationHelper
   def user_status(status)
     content_tag :span, User::STATUS[status.to_s.to_sym], class: status ? %w(label label-success) : %w(label label-default)
   end
+
+  def page_title(title)
+    content_for(:title) { title.to_s }
+  end
 end
