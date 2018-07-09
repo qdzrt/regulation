@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
   before_action :ensure_sign_in
+
+  include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
 
   def current_user
     @current_user ||= User.find_by(id: [session[:user_id], cookies.signed[:user_id]]) if session[:user_id] || cookies.signed[:user_id]
@@ -21,7 +25,13 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path
-    home_path
+    if current_user.admin?
+      admin_products_path
+    elsif current_user.user?
+      admin_roles_path
+    else
+      home_path
+    end
   end
 
   helper_method :current_user
@@ -30,5 +40,10 @@ class ApplicationController < ActionController::Base
 
   def ensure_sign_in
     redirect_to home_path unless sign_in?
+  end
+
+  def user_not_authorized
+    flash[:warning] = "无权限访问"
+    redirect_to(request.referrer || root_path)
   end
 end

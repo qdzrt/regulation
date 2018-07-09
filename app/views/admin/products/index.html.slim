@@ -1,20 +1,20 @@
 = page_title '产品管理'
-div
-  table
-    thead
-      tr
-        th name
-        th period_num
-        th period_unit
-        th operate
-    tbody
-      - @products.each do |product|
+.wrap
+  .table-responsive
+    table.table.table-hover
+      thead
         tr
-          td = product.name
-          td = product.period_num
-          td = product.period_unit
-          td
-            = link_to 'edit', edit_admin_product_path(product)
-            = link_to 'delete', admin_product_path(product), method: :destory, data: {confirm: '确定删除吗？'}
-= link_to 'new_product', new_admin_product_path
-= link_to 'products', admin_products_path
+          th 产品名称
+          th 周期数
+          th 周期单位
+          th 操作
+      tbody
+        - @products.each do |product|
+          tr
+            td = product.name
+            td = product.period_num
+            td = product.period_unit
+            td
+              = link_to 'edit', edit_admin_product_path(product), class: 'btn btn-xs btn-warning'
+              = link_to 'delete', admin_product_path(product), method: :destory, data: {confirm: '确定删除吗？'}, class: 'btn btn-xs btn-danger'
+= link_to '新增', new_admin_product_path, class: 'btn btn-primary'

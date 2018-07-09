@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       end
     end
     resources :products
+    resources :credit_evals
+    resources :loan_fees
   end
 
   resources :users, except: [:index, :destroy] do

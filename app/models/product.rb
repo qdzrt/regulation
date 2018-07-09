@@ -26,7 +26,14 @@ class Product < ApplicationRecord
     end
   end
 
+  def period
+    "#{period_num}#{period_unit}"
+  end
+
+  private
+
   def toggle_loan_fee
     self.loan_fees.update_all(active: active) if active == false
   end
+
 end

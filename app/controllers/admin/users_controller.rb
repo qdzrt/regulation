@@ -5,19 +5,23 @@ class Admin::UsersController < Admin::BaseController
     page = params[:page] || 1
     per = params[:per] || 30
     @users = User.includes(:roles).filter(query_params).with_attached_images.page(page).per(per)
+    authorize @users
   end
 
   def show
+    authorize @user
   end
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
     if @user.save
-      flash[:notice] = '添加成功'
+      flash.now[:notice] = '添加成功'
       redirect_to admin_users_path
     else
       render :new
@@ -25,11 +29,13 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
+    authorize @user
   end
 
   def update
+    authorize @user
     if @user.update(user_params)
-      flash[:notice] = '更新成功'
+      flash.now[:notice] = '更新成功'
       redirect_to admin_users_path
     else
       render :edit
@@ -37,10 +43,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
+    authorize @user
     if @user.delete
-      flash[:notice] = '删除成功'
+      flash.now[:notice] = '删除成功'
     else
-      flash[:error] = '删除失败'
+      flash.now[:error] = '删除失败'
     end
     redirect_to admin_users_path
   end

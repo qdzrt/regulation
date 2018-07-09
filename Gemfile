@@ -35,6 +35,7 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
+gem 'pundit'
 
 gem 'mini_magick'
 gem 'activestorage_qiniu'

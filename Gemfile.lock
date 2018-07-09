@@ -190,6 +190,8 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     qiniu (6.8.1)
       json (~> 1.8)
       mime-types (~> 2.4, >= 2.4.0)
@@ -359,6 +361,7 @@ DEPENDENCIES
   mysql2
   pry-rails
   puma
+  pundit
   rack-cors
   rails (= 5.2)
   rspec
