@@ -1,0 +1,5 @@
+= form_for [:admin, @product], html: {class: 'form-horizontal', role: "form"} do |f|
+  = f.text_field :name
+  = f.number_field :period_num
+  = f.select(:period_unit, period_unit_options)
+  = f.submit '确定'

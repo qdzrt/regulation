@@ -1,0 +1,8 @@
+.container
+  - if flash.any?
+    - flash.each do |type, msg|
+      div class=(flash_css type) role="alert"
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true"
+            | ×
+        == msg

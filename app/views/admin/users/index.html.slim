@@ -1,0 +1,35 @@
+= page_title '用户管理'
+.wrap
+  .panel.panel-default
+    .panel-body
+      = form_tag admin_users_path, id: 'form-search-user', class: 'form-inline', role: 'form', method: :get do
+        .col-md-12
+          .input-group
+            = text_field_tag :search, params[:search], placeholder: '输入姓名', class: 'form-control input-sm'
+            .input-group-btn
+              = submit_tag '搜索', class: 'btn btn-default btn-sm'
+      div
+        = link_to '新增角色', new_admin_user_path, class: 'btn btn-primary btn-sm'
+
+  .table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th 姓名
+          th 邮箱
+          th 角色
+          th 状态
+          th 操作
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.name
+            td = user.email
+            td = user.role_names.join(',')
+            td = user_status(user.active)
+            td
+              = link_to '查看', admin_user_path(user), class: 'btn btn-xs btn-info'
+              = link_to '编辑', edit_admin_user_path(user), class: 'btn btn-xs btn-warning'
+              = link_to '删除', admin_user_path(user), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn btn-xs btn-danger'
+  div.paginate
+    = paginate @users

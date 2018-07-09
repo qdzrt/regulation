@@ -1,0 +1,34 @@
+/<div class="wrap">
+/  <div class="col-sm-offset-4 col-sm-4 sign_up">
+/    <%= simple_form_for @user, html: {class: "form-horizontal", role: "form"} do |f| %>
+/        <%= f.error_notification %>
+/        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+/        <%= f.input :name, class: "form-control", placeholder: '输入姓名' %>
+/        <%= f.input :email, class: "form-control", placeholder: '输入邮箱' %>
+/        <%= f.input :password, class: "form-control", placeholder: '输入密码' %>
+/        <%= f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码' %>
+/        <%= f.button :submit, class: "btn btn-primary btn-block" %>
+/        <% if action_name == 'new' %>
+/          <%= f.input :terms_of_service, as: :boolean %>
+/          <%= link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"} %>
+/        <% end %>
+/    <% end %>
+/  </div>
+/
+/  <%= render 'commons/privacy_policy_modal' %>
+/</div>
+.wrap
+  .col-sm-offset-4.col-sm-4.sign_up
+    = simple_form_for @user, html: {class: "form-horizontal", role: "form"} do |f|
+      = f.error_notification
+      = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+      = f.input :name, class: "form-control", placeholder: '输入姓名'
+      = f.input :email, class: "form-control", placeholder: '输入邮箱'
+      = f.input :password, class: "form-control", placeholder: '输入密码'
+      = f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码'
+      = f.button :submit, class: "btn btn-primary btn-block"
+      - if action_name == 'new'
+        = f.input :terms_of_service, as: :boolean
+        = link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"}
+
+  == render 'commons/privacy_policy_modal'

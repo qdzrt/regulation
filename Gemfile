@@ -21,7 +21,7 @@ gem 'font-awesome-sass'
 gem 'data-confirm-modal'
 gem 'kaminari'
 gem 'simple_form'
-gem 'slim'
+gem 'slim-rails'
 
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production

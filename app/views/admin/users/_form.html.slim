@@ -1,0 +1,17 @@
+.wrap
+  .col-sm-offset-2.col-sm-8
+    = simple_form_for [:admin, @user], html: { class: "form-horizontal", role: "form" } do |f|
+      = f.error_notification
+      = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+      .form-inputs
+        = f.input :name, disabled: action_name == 'edit' ? true : false
+        = f.input :email
+        = f.association :roles, label: '角色', input_html: { multiple: true }
+        = f.input :password
+        = f.input :password_confirmation
+        = f.input :images, as: :file, label: '头像'
+        = f.input :active, as: :boolean
+      .form-actions
+        = f.submit '确定', class: 'btn btn-primary btn-block'
+    = link_to '返回', admin_users_path

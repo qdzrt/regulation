@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title
+      = content_for?(:title) ? yield(:title) : 'Regulation'
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track'=> 'reload'
+    = content_for?(:stylesheet) ? yield(:stylesheet) : ''
+
+  body
+    .header
+      nav.navbar.navbar-fixed-top.navbar-default
+        .container
+          .navbar-header
+            = link_to 'Regulation', nil, class: 'navbar-brand'
+          .collpase.navbar-collpase
+            == render 'layouts/navbar'
+    .main
+      .container
+        .row
+          .col-md-12
+            .flash
+              == render 'layouts/flash'
+            = yield
