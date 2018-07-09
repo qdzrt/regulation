@@ -22,6 +22,7 @@ class User < ApplicationRecord
 
   has_secure_password
   # scope :with_eager_loaded_images, -> { eager_load(images_attachments: :blob) }
+  scope :search, ->(name) { where(arel_table[:name].matches("%#{name}%")) }
 
   class << self
     def authorize!(credentials)

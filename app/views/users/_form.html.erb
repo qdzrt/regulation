@@ -9,8 +9,8 @@
         <%= f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码' %>
         <%= f.button :submit, class: "btn btn-primary btn-block" %>
         <% if action_name == 'new' %>
-            <%= f.input :terms_of_service, as: :boolean %>
-            <%= link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"} %>
+          <%= f.input :terms_of_service, as: :boolean %>
+          <%= link_to '同意服务条款', 'javascript:;', data: {toggle: "modal", target: "#myModal"} %>
         <% end %>
     <% end %>
   </div>

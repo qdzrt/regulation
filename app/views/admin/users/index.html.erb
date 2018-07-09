@@ -7,7 +7,7 @@
           <div class="input-group">
             <%= text_field_tag :search, params[:search], placeholder: '输入姓名', class: 'form-control input-sm' %>
             <div class="input-group-btn">
-              <button class="btn btn-default btn-sm" type="button">搜索</button>
+              <%= submit_tag '搜索', class: 'btn btn-default btn-sm' %>
             </div>
           </div>
         </div>
@@ -26,8 +26,6 @@
           <th>邮箱</th>
           <th>角色</th>
           <th>状态</th>
-          <!--<th>images</th>-->
-          <!--<th>documents</th>-->
           <th>操作</th>
         </tr>
       </thead>

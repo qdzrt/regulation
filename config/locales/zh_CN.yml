@@ -9,7 +9,6 @@ zh_CN:
       product: "产品"
       loan_fee: "费率"
 
-
     attributes:
       user:
         name: "用户名"
@@ -22,8 +21,6 @@ zh_CN:
         code: "角色代码"
         name: "角色名称"
         description: "描述"
-      role_ship:
-        role: "角色"
       credit_eval:
         score_gteq: "最低分"
         score_lt: "最高分"
@@ -75,6 +72,10 @@ zh_CN:
             name:
               blank: "不能为空"
               invalid: "必须是中文"
+        role_ship:
+          attributes:
+            role:
+              required: "必选"
         product:
           attributes:
             user:
@@ -112,9 +113,9 @@ zh_CN:
               blank: "不能为空"
 
   views:
-     pagination:
-       first: "&laquo; 第一页"
-       last: "最后一页 &raquo;"
-       next: "下一页 &rsaquo;"
-       previous: "&lsaquo; 上一页"
-       truncate: "&hellip;"
+    pagination:
+      first: "&laquo; 第一页"
+      last: "最后一页 &raquo;"
+      next: "下一页 &rsaquo;"
+      previous: "&lsaquo; 上一页"
+      truncate: "&hellip;"

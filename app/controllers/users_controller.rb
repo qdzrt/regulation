@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.active = true
+    @user.role_ships.build({role: Role.find_by(code: 'user', name: '普通用户')})
     if @user.save
       sign_in @user
       flash[:notice] = '添加成功'

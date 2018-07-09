@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 gem 'rails', '5.2'
 gem 'mysql2'
 gem 'puma'
@@ -20,6 +19,9 @@ gem 'turbolinks', '~> 5.1.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'data-confirm-modal'
+gem 'kaminari'
+gem 'simple_form'
+gem 'slim'
 
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
@@ -33,14 +35,11 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 # API的限流保护
 gem 'grape-attack'
-gem 'kaminari'
 
 gem 'mini_magick'
 gem 'activestorage_qiniu'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
-gem 'simple_form'
 
 group :development, :test do
   gem 'rspec'

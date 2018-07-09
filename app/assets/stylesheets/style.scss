@@ -8,25 +8,26 @@ body{
   letter-spacing: .03em;
 }
 .main {
-  padding-top: 60px;
+  padding-top: 5rem;
 }
 $mp:15px;
 .float-r {
   float: right;
 }
-.content-top {
-  margin-top: 200px;
-}
 .flash {
   margin-left: -15px;
 }
 .paginate{
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: .2rem;
+  margin-bottom: .2rem;
   text-align: center;
 }
 .panel-body {
   display: inline-flex;
+}
+.form-horizontal .form-group {
+  margin-right: 0;
+  margin-left: 0;
 }
 // sign_up
 .sign_up a:focus {

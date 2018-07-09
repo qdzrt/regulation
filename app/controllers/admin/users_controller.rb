@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::BaseController
   def index
     page = params[:page] || 1
     per = params[:per] || 30
-    @users = User.includes(:roles).with_attached_images.page(page).per(per)
+    @users = User.includes(:roles).filter(query_params).with_attached_images.page(page).per(per)
   end
 
   def show
