@@ -18,4 +18,10 @@ class CreditEval < ApplicationRecord
   def score_interval
     ['[', score_gteq, ',', score_lt, ')'].join if score_gteq && score_lt
   end
+
+  class << self
+    def interval_period
+      pluck(:id, :score_gteq, :score_lt).map{|a,b,c| [['[', b, ',', c, ')'].join, a] }
+    end
+  end
 end

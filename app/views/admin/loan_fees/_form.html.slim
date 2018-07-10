@@ -1,0 +1,18 @@
+.col-sm-offset-2.col-sm-8
+  = simple_form_for [:admin, @loan_fee], html: { class: 'from-horizontal', role: 'form' } do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    .form-inputs
+      = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+      = f.association :credit_eval, collection: CreditEval.interval_period, include_blank: false
+      = f.association :product, include_blank: false
+      = f.input :times, collection: LoanFee::TIMES, as: :select, include_blank: false
+      = f.input :management_fee
+      = f.input :dayly_fee
+      = f.input :weekly_fee
+      = f.input :monthly_fee
+
+    .form-actions
+      = f.submit '确定'
+  = link_to '返回', admin_loan_fees_path

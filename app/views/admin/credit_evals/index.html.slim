@@ -1,0 +1,12 @@
+.wrap
+  .table-responsive
+    table.table.table-hover
+      thead
+        tr
+          th 信用分区间
+          th 等级
+      tbody
+        - @credit_evals.each do |credit_eval|
+          tr
+            td = credit_eval.score_interval
+            td = credit_eval.grade

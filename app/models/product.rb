@@ -24,6 +24,7 @@ class Product < ApplicationRecord
         '年' => 'Y',
       }
     end
+
   end
 
   def period

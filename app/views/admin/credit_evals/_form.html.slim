@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @credit_eval], html: { class: 'from-horizontal', role: 'form' } do |f|
+  = f.input :score_gteq, as: :integer
+  = f.input :score_lt, as: :integer
+  = f.input :grade
+  = f.submit '确定'

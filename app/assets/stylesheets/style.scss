@@ -69,3 +69,13 @@ input[type=file][data-direct-upload-url][disabled] {
   display: none;
 }
 //direct-upload end
+// loan_fee
+.loan-fee-list .dropdown-menu {
+  min-width: 120px;
+}
+#form-loan-fee-search .input-group {
+    display: inline-flex;
+}
+#form-loan-fee-search select {
+  width: 105%;
+}
