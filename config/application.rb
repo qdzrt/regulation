@@ -41,5 +41,9 @@ module Regulation
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
     config.action_dispatch.rescue_responses["Pundit::NotAuthorizedError"] = :forbidden
+
+    # same as YAML.load_file(Rails.root.join('config', 'redis.yml'))[Rails.env]
+    config.redis = config_for(:redis).deep_symbolize_keys!
+    config.cache_store = :redis_store, config.redis
   end
 end
