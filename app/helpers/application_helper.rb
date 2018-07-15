@@ -22,4 +22,27 @@ module ApplicationHelper
     content_for(:title) { title.to_s }
   end
 
+  def current_controller?(*ctrs)
+    ctrs.any? {|ctr| ctr.to_s == controller_path }
+  end
+
+  def current_action?(*acs)
+    acs.any? {|ac| ac.to_s == action_name }
+  end
+
+  def select_page(controllers, actions)
+    if actions && controllers
+      current_controller?(controllers) && current_action?(actions)
+      # current_page?(controller: controller_path, action: action)
+    else
+      current_controller?(controllers) || current_action?(actions)
+    end
+   end
+
+  def content_wrap(option)
+    controllers = option[:controller]
+    actions = option[:action]
+    'active' if select_page(controllers, actions)
+  end
+
 end

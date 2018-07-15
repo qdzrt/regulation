@@ -9,19 +9,19 @@ ul.nav.navbar-nav
         ul.dropdown-menu
           - if policy(:role).index?
             li
-              = link_to '角色管理', admin_roles_path
+              = link_to '角色管理', admin_roles_path, class: content_wrap(controller: 'admin/roles')
           - if policy(:user).index?
             li
-              = link_to '用户管理', admin_users_path
+              = link_to '用户管理', admin_users_path, class: content_wrap(controller: 'admin/users')
           - if policy(:product).index?
             li
-              = link_to '产品管理', admin_products_path
+              = link_to '产品管理', admin_products_path, class: content_wrap(controller: 'admin/products')
           - if policy(:credit_eval).index?
             li
-              = link_to '信用分管理', admin_credit_evals_path
+              = link_to '信用分管理', admin_credit_evals_path, class: content_wrap(controller: 'admin/credit_evals')
           - if policy(:loan_fee).index?
             li
-              = link_to '费率管理', admin_loan_fees_path
+              = link_to '费率管理', admin_loan_fees_path, class: content_wrap(controller: 'admin/loan_fees')
 
 ul.nav.navbar-nav.navbar-right
   - if current_user
@@ -34,12 +34,12 @@ ul.nav.navbar-nav.navbar-right
         span.caret
       ul.dropdown-menu
         li
-          = link_to '个人资料', user_path(current_user)
+          = link_to '个人资料', user_path(current_user), class: content_wrap(controller: ['admin/users', 'users'])
         li
           = link_to '退出', sign_out_path, method: :delete
         li.divider role="separator"
         li
-          = link_to '修改密码', edit_user_path(current_user)
+          = link_to '修改密码', edit_user_path(current_user), class: content_wrap(controller: ['admin/users', 'users'], action: 'edit')
   - else
     li
       = link_to '登录', sign_in_path
