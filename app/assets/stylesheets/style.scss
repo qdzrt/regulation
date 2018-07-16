@@ -29,6 +29,12 @@ $mp:15px;
   margin-right: 0;
   margin-left: 0;
 }
+// navbar
+.collpase.navbar-collpase .dropdown-menu .active {
+  background-color: lightsteelblue;
+  color: white !important;
+  padding-left:12%;
+}
 // sign_up
 .sign_up a:focus {
   color: #337ab7;

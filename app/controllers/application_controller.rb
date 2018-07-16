@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def current_user
-    @current_user ||= User.find_by(id: [session[:user_id], cookies.signed[:user_id]]) if session[:user_id] || cookies.signed[:user_id]
+    user_id = session[:user_id] || cookies.signed[:user_id]
+    @current_user ||= User.find(user_id) if user_id
   end
 
   def sign_in?
