@@ -1,0 +1,22 @@
+= page_title '秒杀'
+.wrap.preferential
+  - @loan_fees.each do |loan_fee|
+    .thumbnail
+      img src="..." alt="..."
+      .caption
+        h3
+          = loan_fee[:product_name]
+        p
+          span
+            | 信用分区间:
+            = loan_fee[:score_interval]
+          br
+          span
+            | 周费率:
+            = loan_fee[:weekly_fee]
+          br
+          span
+            | 月费率:
+            = loan_fee[:monthly_fee]
+        p
+          a href="#" class="btn btn-success" role="button" 领取

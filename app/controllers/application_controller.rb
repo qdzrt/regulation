@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     if current_user.admin?
       admin_products_path
     elsif current_user.user?
-      admin_roles_path
+      loan_fees_path
     else
       home_path
     end

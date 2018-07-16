@@ -85,3 +85,12 @@ input[type=file][data-direct-upload-url][disabled] {
 #form-loan-fee-search select {
   width: 105%;
 }
+// preferential
+.preferential {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.thumbnail {
+  margin: 0 1rem 0 1rem;
+}
