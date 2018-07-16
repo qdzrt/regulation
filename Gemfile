@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'slim-rails'
 
 gem 'jbuilder'
+gem 'fast_jsonapi'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 gem 'bcrypt'
@@ -41,6 +42,7 @@ gem 'mini_magick'
 gem 'activestorage_qiniu'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+
 
 group :development, :test do
   gem 'rspec'

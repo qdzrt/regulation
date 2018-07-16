@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'welcome#index'
 
-  get '/home', to: 'welcome#index', as: 'home'
+  get '/not_found', to: 'welcome#not_found', as: 'not_found'
   get '/sign_up', to: 'users#new', as:  'sign_up'
   get '/sign_in', to: 'sessions#new', as:  'sign_in'
   post '/sign_in', to: 'sessions#create'
@@ -29,10 +29,11 @@ Rails.application.routes.draw do
   end
 
 
-
   mount API => '/'
   if Rails.env.development?
     mount GrapeSwaggerRails::Engine => '/docs'
   end
+
+  match '*path', to: 'welcome#not_found', via: :all
 
 end
