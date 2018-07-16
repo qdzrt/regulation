@@ -37,7 +37,8 @@
             td = loan_fee.monthly_fee
             td
               .switch[data-on="danger" data-off="primary" data-size="mini"]
-                input[type='checkbox' name='active-checkbox' checked]
+                /input[type='checkbox' name='active-checkbox']
+                = loan_fee.active
             td
               .dropdown
                 button.btn.btn-default.btn-sm.dropdown-toggle type="button" id="dropdownActive" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
@@ -48,3 +49,5 @@
                     = link_to '修改', edit_admin_loan_fee_path(loan_fee)
                   li
                     = link_to '删除', admin_loan_fee_path(loan_fee), method: :delete, data: { confirm: '确定删除吗？' }
+                  li
+                    = link_to '启动', nil

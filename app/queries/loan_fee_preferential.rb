@@ -12,7 +12,7 @@ class LoanFeePreferential < BaseQuery
   def to_query
     loan_fees
       .project(
-        loan_fees[:id].as(Arel.sql 'loan_fee_id'),
+        loan_fees[:id].as(Arel.sql 'id'),
         loan_fees[:times].as(Arel.sql 'times'),
         loan_fees[:management_fee].as(Arel.sql 'management_fee'),
         loan_fees[:dayly_fee].as(Arel.sql 'dayly_fee'),
