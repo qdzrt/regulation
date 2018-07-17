@@ -82,8 +82,10 @@ input[type=file][data-direct-upload-url][disabled] {
 #form-loan-fee-search .input-group {
     display: inline-flex;
 }
-#form-loan-fee-search select {
-  width: 105%;
+#form-loan-fee-search {
+  #score_interval, #times {
+    border-right: none;
+  }
 }
 // preferential
 .preferential {

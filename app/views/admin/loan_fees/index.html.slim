@@ -5,7 +5,9 @@
         .col-md-12
           .input-group
             = select_tag :score_interval, score_interval_options, class: 'form-control input-sm', include_blank: "请选择信用分"
+          .input-group
             = select_tag :times, times_options, class: 'form-control input-sm', include_blank: "请选择首续贷"
+          .input-group
             = select_tag :period, product_options, class: 'form-control input-sm', include_blank: "请选择产品"
             .input-group-btn
               = submit_tag '搜索', class: 'btn btn-default btn-sm'
