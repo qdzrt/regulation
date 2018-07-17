@@ -22,7 +22,7 @@ gem 'data-confirm-modal'
 gem 'kaminari'
 gem 'simple_form'
 gem 'slim-rails'
-
+gem 'toastr-rails'
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

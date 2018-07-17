@@ -3,14 +3,17 @@ class LoanFeesController < ApplicationController
     @loan_fees = LoanFeePreferential.new.call.tap { |loan_fees| SecKill.store(loan_fees) }
   end
 
-  def receive
-    member = "loan_fee_#{params[:loan_fee_id]}"
-    pre_score = SecKill.score_for member
-    SecKill.reduce_for member
-    current_score = SecKill.score_for member
-    if pre_score > current_score
-      flash[:notice] = '领取成功！'
+  def seckill
+    loan_fee_id = params[:loan_fee_id]
+    user_id = current_user.id
+    status = SeckillService.new(loan_fee_id, user_id).receive
+    if status
+      render json: {success: true, message: '领取成功！'}
+    else
+      render json: {success: false, message: '领取失败！'}
     end
+  rescue => e
+    render json: {success: false, message: e.message}
   end
 
 end

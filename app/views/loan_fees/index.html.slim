@@ -2,7 +2,7 @@
 .wrap.preferential
   - @loan_fees.each do |loan_fee|
     .thumbnail
-      img src="..." alt="..."
+      /img src="..." alt="..."
       .caption
         h3
           = loan_fee[:product_name]
@@ -18,5 +18,9 @@
           span
             | 月费率:
             = loan_fee[:monthly_fee]
+          br
+          span
+            | 库存
+            = SecKill.score_for(loan_fee[:id])
         p
-          a href="#" class="btn btn-success" role="button" 领取
+          = link_to '领取', "javascript:;", class: "btn btn-success seckill", data: {target: loan_fee[:id]}

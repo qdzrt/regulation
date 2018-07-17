@@ -18,5 +18,6 @@
 //= require activestorage
 //= requore direct_uploads
 //= require switch/bootstrap-switch.min
+//= require toastr/toastr.min
 //= require_tree .
 //= require_self
