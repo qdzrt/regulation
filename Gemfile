@@ -22,7 +22,7 @@ gem 'data-confirm-modal'
 gem 'kaminari'
 gem 'simple_form'
 gem 'slim-rails'
-
+gem 'toastr-rails'
 gem 'jbuilder'
 gem 'fast_jsonapi'
 # Use Redis adapter to run Action Cable in production
@@ -43,6 +43,7 @@ gem 'activestorage_qiniu'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'redis-rails'
 
 group :development, :test do
   gem 'rspec'

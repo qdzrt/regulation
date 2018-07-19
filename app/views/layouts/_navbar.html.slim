@@ -22,6 +22,8 @@ ul.nav.navbar-nav
           - if policy(:loan_fee).index?
             li
               = link_to '费率管理', admin_loan_fees_path, class: content_wrap(controller: 'admin/loan_fees')
+  li
+    = link_to '秒杀', loan_fees_path
 
 ul.nav.navbar-nav.navbar-right
   - if current_user

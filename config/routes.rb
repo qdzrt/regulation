@@ -28,6 +28,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :loan_fees, only: [:index] do
+    collection do
+      get 'seckill'
+    end
+  end
 
   mount API => '/'
   if Rails.env.development?

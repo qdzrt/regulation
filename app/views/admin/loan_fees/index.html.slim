@@ -5,7 +5,9 @@
         .col-md-12
           .input-group
             = select_tag :score_interval, score_interval_options, class: 'form-control input-sm', include_blank: "请选择信用分"
+          .input-group
             = select_tag :times, times_options, class: 'form-control input-sm', include_blank: "请选择首续贷"
+          .input-group
             = select_tag :period, product_options, class: 'form-control input-sm', include_blank: "请选择产品"
             .input-group-btn
               = submit_tag '搜索', class: 'btn btn-default btn-sm'
@@ -37,7 +39,8 @@
             td = loan_fee.monthly_fee
             td
               .switch[data-on="danger" data-off="primary" data-size="mini"]
-                input[type='checkbox' name='active-checkbox' checked]
+                /input[type='checkbox' name='active-checkbox']
+                = loan_fee.active
             td
               .dropdown
                 button.btn.btn-default.btn-sm.dropdown-toggle type="button" id="dropdownActive" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
@@ -48,3 +51,5 @@
                     = link_to '修改', edit_admin_loan_fee_path(loan_fee)
                   li
                     = link_to '删除', admin_loan_fee_path(loan_fee), method: :delete, data: { confirm: '确定删除吗？' }
+                  li
+                    = link_to '启动', nil
