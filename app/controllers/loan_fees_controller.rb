@@ -1,6 +1,6 @@
 class LoanFeesController < ApplicationController
   def index
-    @loan_fees = LoanFeePreferential.new.call.tap { |loan_fees| SecKill.store(loan_fees) }
+    @loan_fees = LoanFeePreferential.new.call
   end
 
   def seckill
