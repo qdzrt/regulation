@@ -6,6 +6,15 @@ module ApplicationHelper
     error: 'alert alert-dismissible alert-danger',
   }
 
+  LABEL_CSS_MAP = {
+    success: %w(label label-success),
+    default: 'label label-default',
+    primary: 'label label-primary',
+    info: 'label label-info',
+    warning: 'label label-warning',
+    danger: 'label label-danger',
+  }
+
   def period_unit_options
     options_for_select(Product.period_unit_title, 'M')
   end
@@ -43,6 +52,10 @@ module ApplicationHelper
     controllers = option[:controller]
     actions = option[:action]
     'active' if select_page(controllers, actions)
+  end
+
+  def lable_times(times)
+    content_tag :span, times, class: "label label-#{times == '首贷' ? 'primary' : 'info'}"
   end
 
 end

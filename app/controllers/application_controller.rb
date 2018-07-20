@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.user?
       loan_fees_path
     else
-      home_path
+      root_path
     end
   end
 
@@ -40,7 +40,10 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_sign_in
-    redirect_to home_path unless sign_in?
+    unless sign_in?
+      flash.now[:warning] = "请先登录"
+      redirect_to root_path
+    end
   end
 
   def user_not_authorized

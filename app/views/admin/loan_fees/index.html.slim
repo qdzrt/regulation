@@ -31,7 +31,7 @@
         - @loan_fees.each do |loan_fee|
           tr
             td = loan_fee.product_name
-            td = loan_fee.times_title
+            td = lable_times(loan_fee.times_title)
             td = loan_fee.score_interval
             td = loan_fee.management_fee
             td = loan_fee.dayly_fee

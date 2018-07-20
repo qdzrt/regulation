@@ -43,6 +43,8 @@ gem 'activestorage_qiniu'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'redis-rails'
+gem 'rufus-scheduler'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'rspec'

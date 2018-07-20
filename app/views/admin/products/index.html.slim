@@ -15,6 +15,6 @@
             td = product.period_num
             td = product.period_unit
             td
-              = link_to 'edit', edit_admin_product_path(product), class: 'btn btn-xs btn-warning'
-              = link_to 'delete', admin_product_path(product), method: :destory, data: {confirm: '确定删除吗？'}, class: 'btn btn-xs btn-danger'
+              = link_to '编辑', edit_admin_product_path(product), class: 'btn btn-xs btn-warning'
+              = link_to '删除', admin_product_path(product), method: :destory, data: {confirm: '确定删除吗？'}, class: 'btn btn-xs btn-danger'
 = link_to '新增', new_admin_product_path, class: 'btn btn-primary'

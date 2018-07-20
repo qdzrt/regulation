@@ -16,13 +16,12 @@ module SecKill
   end
 
   def store(loan_fees, score = 3)
-    return unless active_time?
     loan_fees.each do |loan_fee|
       loan_fee_id = loan_fee[:id]
       store_rates_list(loan_fee_id)
       store_rates_detail(loan_fee, loan_fee_id)
       store_rates_stock(loan_fee_id, score)
-      # 设置3分钟过期
+      # 设置半小时后过期
       $redis.expire ZSET_KET, 60 * 30
     end
   end
@@ -97,11 +96,6 @@ module SecKill
     $redis.del SET_KEY
     keys = $redis.keys 'loan_fee_id:*'
     $redis.del *keys
-  end
-
-  # 活动时间
-  def active_time?
-    '2018-07-16 23:40' == Time.current.strftime('%Y-%m-%d %H:%M')
   end
 
   def member(loan_fee_id)
