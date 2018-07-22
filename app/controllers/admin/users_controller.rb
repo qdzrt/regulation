@@ -21,6 +21,7 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
     authorize @user
     if @user.save
+      UsersMailer.create_notify(@user.name, @user.email, user_params[:password]).deliver_now
       flash.now[:notice] = '添加成功'
       redirect_to admin_users_path
     else

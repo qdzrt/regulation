@@ -1,0 +1,18 @@
+default: &default
+  address:              smtp.163.com
+  port:                 25
+  domain:               mail.163.com
+  user_name:            <%= Rails.application.credentials.dig(:mailer, :user_name) %>
+  password:             <%= Rails.application.credentials.dig(:mailer, :password) %>
+  authentication:       plain
+  enable_starttls_auto: true
+  openssl_verify_mode: none
+
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+  user_name: <%= Rails.application.credentials.mailer.dig(:user_name) %>
+  password: <%= Rails.application.credentials.mailer.dig(:password) %>

@@ -25,7 +25,7 @@ gem 'slim-rails'
 gem 'toastr-rails'
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 gem 'bcrypt'
 gem 'rack-cors'
 gem 'jwt'
@@ -43,6 +43,7 @@ gem 'activestorage_qiniu'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'redis-rails'
+gem 'whenever'
 gem 'rufus-scheduler'
 gem 'sidekiq'
 

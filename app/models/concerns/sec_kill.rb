@@ -95,7 +95,7 @@ module SecKill
     $redis.del LIST_KEY
     $redis.del SET_KEY
     keys = $redis.keys 'loan_fee_id:*'
-    $redis.del *keys
+    $redis.del *keys unless keys.blank?
   end
 
   def member(loan_fee_id)

@@ -43,7 +43,14 @@ module Regulation
     config.action_dispatch.rescue_responses["Pundit::NotAuthorizedError"] = :forbidden
 
     # same as YAML.load_file(Rails.root.join('config', 'redis.yml'))[Rails.env]
-    config.redis = config_for(:redis).deep_symbolize_keys!
+    %w(redis mailer).each do |key|
+      config.send(:"#{key}=", config_for(key.to_sym).deep_symbolize_keys!)
+    end
+
+    # config.redis = config_for(:redis).deep_symbolize_keys!
     config.cache_store = :redis_store, config.redis
+
+    # Active Job
+    config.active_job.queue_adapter = :sidekiq
   end
 end

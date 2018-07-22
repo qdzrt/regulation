@@ -30,10 +30,10 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler::singleton
 
-scheduler.cron '00 10 * * *' do
+scheduler.cron '55 22 * * *' do
   SecKillJob.perform_now
 end
 
-scheduler.cron '02 18 * * *' do
+scheduler.cron '10 23 * * *' do
   SecKill.clean_cache
 end
