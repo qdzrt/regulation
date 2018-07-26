@@ -2,7 +2,7 @@
   .col-sm-offset-4.col-sm-4.sign_up
     = simple_form_for @user, url: password_path, html: {method: "PUT", class: "form-horizontal", role: "form"} do |f|
       = f.error_notification
-      = f.input :reset_password_token, input_html: {value: params[:token]}
+      = f.input :reset_password_token, as: :hidden, input_html: {value: params[:token]}
       = f.input :password, class: "form-control", placeholder: '输入密码'
       = f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码'
       = f.submit '确定', class: "btn btn-primary btn-block"
