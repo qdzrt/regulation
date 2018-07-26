@@ -24,6 +24,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'toastr-rails'
 gem 'jbuilder'
+gem 'fast_jsonapi'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 gem 'bcrypt'
