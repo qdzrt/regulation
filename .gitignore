@@ -21,4 +21,3 @@
 /storage
 redis.yml
 master.key
-public/assets/*
