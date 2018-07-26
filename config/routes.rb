@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   post '/sign_in', to: 'sessions#create'
   delete '/sign_out', to: 'sessions#destroy', as: 'sign_out'
 
+  get '/password/new', to: 'password#new', as: 'new_password'
+  post '/password', to: 'password#create'
+  get '/password/edit', to: 'password#edit', as: 'edit_password'
+  put '/password', to: 'password#update'
+
+
   delete '/delete_attachment', to: 'attachments#destroy', as: 'delete_attachment'
 
   namespace :admin do

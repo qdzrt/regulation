@@ -44,8 +44,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'redis-rails'
 gem 'whenever'
-gem 'rufus-scheduler'
 gem 'sidekiq'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rspec'

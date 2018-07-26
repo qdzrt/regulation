@@ -58,4 +58,8 @@ module ApplicationHelper
     content_tag :span, times, class: "label label-#{times == '首贷' ? 'primary' : 'info'}"
   end
 
+  def sec_kill_link
+    name = SecKill.expire? && '10:00' < Time.current.strftime('%H:%M') ? '秒杀(已结束)' : '秒杀(10:00)'
+    link_to name, loan_fees_path
+  end
 end

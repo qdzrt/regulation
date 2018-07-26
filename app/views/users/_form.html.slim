@@ -22,8 +22,8 @@
     = simple_form_for @user, html: {class: "form-horizontal", role: "form"} do |f|
       = f.error_notification
       = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-      = f.input :name, class: "form-control", placeholder: '输入姓名'
       = f.input :email, class: "form-control", placeholder: '输入邮箱'
+      = f.input :name, class: "form-control", placeholder: '输入姓名'
       = f.input :password, class: "form-control", placeholder: '输入密码'
       = f.input :password_confirmation, class: "form-control", placeholder: '输入确认密码'
       = f.button :submit, class: "btn btn-primary btn-block"

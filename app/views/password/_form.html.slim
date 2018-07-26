@@ -1,0 +1,6 @@
+.wrap
+  .col-sm-offset-4.col-sm-4.sign_up
+    = simple_form_for(@user, url: password_path, html: {class: "form-horizontal", role: "form", id: "new_password"}) do |f|
+      = f.error_notification
+      = f.input :email, class: "form-control", placeholder: '帐号'
+      = f.submit '确定', class: "btn btn-primary btn-block"

@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates_presence_of :password, :password_confirmation, on: :create
   validates :email, presence: true, uniqueness: true, format: { with: /\A([-a-z0-9+._]){1,64}@([-a-z0-9]+[.])+[a-z]{2,}\z/ }
 
-  attr_accessor :terms_of_service, :remember_me
+  attr_accessor :terms_of_service, :remember_me, :reset_password_token
   validates_acceptance_of :terms_of_service, on: :create
 
   has_secure_password

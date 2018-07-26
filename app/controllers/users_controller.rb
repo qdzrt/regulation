@@ -16,7 +16,8 @@ class UsersController < ApplicationController
     @user.role_ships.build({role: Role.find_by(code: 'user', name: '普通用户')})
     if @user.save
       sign_in @user
-      flash[:notice] = '添加成功'
+      UsersMailer.create_notify(@user.name, @user.email, user_params[:password]).deliver_now
+      flash[:notice] = '注册成功'
       redirect_to after_sign_in_path
     else
       flash[:error] = @user.errors.full_messages.join(',')

@@ -18,22 +18,13 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-# every 1.day, at: '10:00 am' do
-#   rake 'cron:seckill'
-# end
+set :environment, ENV.fetch('RAILS_ENV'){ 'development' }
+set :output, "log/cron.log"
 
-# every 1.day, at: '12:00 am' do
-#   runner "SecKill.clean_cache"
-# end
-
-require 'rufus-scheduler'
-
-scheduler = Rufus::Scheduler::singleton
-
-scheduler.cron '55 22 * * *' do
-  SecKillJob.perform_now
+every 2.minutes do
+  rake 'cron:seckill'
 end
 
-scheduler.cron '10 23 * * *' do
-  SecKill.clean_cache
+every 1.day, at: '12:00 am' do
+  runner "SecKill.clean_cache"
 end

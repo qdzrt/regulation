@@ -31,7 +31,7 @@ nav.navbar.navbar-fixed-top.navbar-default
                     li
                       = link_to '费率管理', admin_loan_fees_path, class: content_wrap(controller: 'admin/loan_fees')
           li
-            = link_to '秒杀(10:00)', loan_fees_path
+            = sec_kill_link
 
         ul.nav.navbar-nav.navbar-right
           - if current_user

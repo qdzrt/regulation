@@ -20,3 +20,4 @@
 .idea/*
 /storage
 redis.yml
+master.key
